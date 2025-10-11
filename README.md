@@ -170,17 +170,6 @@ The final system forecasts **hourly and daily order volumes** for each subzone, 
 
 ---
 
-## 📆 Project Timeline (4 Weeks)
-
-| Week       | Tasks                                                                                                               |
-| ---------- | ------------------------------------------------------------------------------------------------------------------- |
-| **Week 1** | Collect datasets: orders, weather, restaurants, events, population. Clean & integrate.                              |
-| **Week 2** | Feature engineering: time features, lag features, derived variables. Train baseline regression models.              |
-| **Week 3** | Train MLP & gradient boosting models. Hyperparameter tuning. Evaluate hourly vs daily predictions.                  |
-| **Week 4** | Compare models, finalize evaluation. Prepare report & documentation. Optional: deploy simple REST API or dashboard. |
-
----
-
 ## 📚 Tools & Technologies
 
 | Category        | Tools                                                          |
