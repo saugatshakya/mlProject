@@ -1,20 +1,15 @@
 # 🍽️ Food Delivery Demand Prediction using Multi-Source Data Integration
 
 ## 📘 Overview
-Food delivery services often struggle with fluctuating order demand affected by factors such as weather, restaurant availability, and time of day.  
-This project aims to **forecast food delivery demand** by integrating multiple data sources — weather APIs, restaurant information, and historical order datasets — and training supervised ML models to predict future demand levels.
+Food delivery platforms experience fluctuating demand influenced by various external factors — weather, events, holidays, and socio-economic conditions.  
+This project integrates **multiple public data sources and APIs** to build a supervised ML model that predicts **food delivery demand** in real-time or for future time windows.
 
-This helps businesses:
-- Optimize delivery staff allocation  
-- Reduce customer wait times  
-- Improve inventory and logistics planning  
+The final system forecasts order volume using contextual data from weather, restaurant information, holidays, events, population density, and mobility statistics.
 
 ---
 
 ## 🎯 Business Problem
-> "How can a food delivery platform predict hourly or daily order demand for each area to optimize operations and reduce delivery delays?"
-
-By turning this **business question** into a **machine learning problem**, we can forecast expected orders based on contextual and external data (e.g., weather, ratings, time, location).
+> “How can a food delivery platform predict hourly or daily demand for each area, accounting for local events, population, and external conditions — to optimize delivery resources and reduce waiting times?”
 
 ---
 
@@ -24,63 +19,77 @@ By turning this **business question** into a **machine learning problem**, we ca
 |--------|-------------|
 | **Type** | Supervised Learning — Regression |
 | **Objective** | Predict number of expected food orders in a given area and time |
-| **Input Features** | Weather, restaurant attributes, ratings, time, and location |
-| **Output Label** | Order demand (number of orders) |
-| **Evaluation Metrics** | Mean Absolute Error (MAE), Root Mean Square Error (RMSE), R² score |
+| **Inputs** | Weather, time, restaurant density, local events, population, and economic data |
+| **Target Variable** | Number of orders per area per hour |
+| **Evaluation Metrics** | MAE, RMSE, R², MAPE |
 
 ---
 
 ## 🧩 Data Sources
 
-We combine **four+ APIs/datasets** to construct a real-world dataset.
+We combine **multiple APIs and datasets** across environmental, demographic, and behavioral factors.
 
-| Source | Type | Description |
-|---------|------|-------------|
-| **1️⃣ OpenWeatherMap API** | Weather | Provides temperature, precipitation, wind, humidity, and conditions (e.g., sunny, rain) for any location and time. |
-| **2️⃣ Yelp Open Dataset** | Restaurants | Contains restaurant information such as location, ratings, reviews, and cuisine type. Used to calculate restaurant density and average rating. |
-| **3️⃣ Instacart Market Basket Analysis (Kaggle)** | Order History | Proxy for user purchase behavior and time-of-day patterns in ordering. Used to simulate food order demand. |
-| **4️⃣ Meteostat API** | Historical Weather | Supplements weather history for missing timestamps or broader climate context. |
-| **(Optional)** Google Places or Foursquare API | Location Intelligence | Adds features like popularity score, nearby restaurant count, and competitor density. |
+| # | Source | Type | Description / Features Provided |
+|---|---------|------|----------------------------------|
+| **1️⃣ OpenWeatherMap API** | Weather | Temperature, humidity, wind, and precipitation. Weather affects delivery times and demand. |
+| **2️⃣ Meteostat API** | Historical Weather | Long-term weather records to augment historical datasets. |
+| **3️⃣ Yelp Open Dataset** | Restaurant Data | Business names, categories, ratings, and reviews. Used to compute restaurant density, cuisine diversity, and average rating per region. |
+| **4️⃣ Instacart Market Basket Dataset (Kaggle)** | Order History | Simulates historical customer purchase behavior and ordering frequency. |
+| **5️⃣ Google Places / Foursquare API** | Location Intelligence | Popularity, check-ins, and competitor density per area. Used to estimate demand hotspots. |
+| **6️⃣ Google Mobility Reports (COVID-19 Mobility / Community Mobility)** | Human Mobility | Tracks how foot traffic changes in grocery, retail, and residential areas — useful to estimate demand shifts on weekends or events. |
+| **7️⃣ Public Holidays API** | Calendar Events | Returns local holidays, festivals, and cultural events by country/region. Used as categorical time features. [https://date.nager.at](https://date.nager.at) |
+| **8️⃣ Ticketmaster / Eventbrite API** | Local Events | Provides concerts, sports, and public gatherings in an area. High-impact predictor for sudden demand spikes. |
+| **9️⃣ WorldPop / UN Data / OpenStreetMap Population Grid** | Demographics | Population density per area, urban vs rural classification, age groups. Helps scale potential order volume. |
+| **🔟 World Bank Open Data API** | Economic Indicators | GDP per capita, income level, urbanization rate — proxy for affordability and ordering frequency. |
+| **1️⃣1️⃣ City-level Open Data Portals** | Local Statistics | Traffic volume, commute patterns, and restaurant inspections (varies by region). |
+| **1️⃣2️⃣ Google Trends API** | Search Interest | Popular search queries like “pizza delivery near me” can proxy short-term demand surges. |
 
 ---
 
 ## 🧮 Data Construction Pipeline
 
-1. **Collect weather data** using OpenWeatherMap and Meteostat (temperature, humidity, rain, wind).  
-2. **Fetch restaurant attributes** (ratings, categories, coordinates) using Yelp or Google Places API.  
-3. **Load order data** from Instacart or a synthetic dataset (timestamp, location, order count).  
-4. **Merge datasets** by timestamp and location grid (e.g., postal code or lat/lon clusters).  
-5. **Feature engineering:**
-   - Encode time features (hour, day of week, weekend flag).
-   - Compute average restaurant rating per area.
-   - Calculate restaurant density (count per area).
-   - Include weather features (rain, temperature, etc.).
-   - Normalize and scale numerical features.
+1. **Collect Weather Data**  
+   - From OpenWeatherMap & Meteostat (temperature, rain, humidity, etc.)
+2. **Extract Restaurant Attributes**  
+   - Yelp / Google Places (ratings, cuisines, restaurant count)
+3. **Load Order Data**  
+   - Instacart orders or synthetic dataset (orders per time/location)
+4. **Integrate Events and Holidays**  
+   - Public Holidays API and Ticketmaster/Eventbrite API to mark special occasions.
+5. **Add Socioeconomic Features**  
+   - Population density, GDP, and mobility data (WorldPop, World Bank, Google Mobility).
+6. **Feature Engineering**  
+   - Time features: hour, day of week, weekend flag  
+   - Weather features: temperature, rain, wind  
+   - Demographics: population_density, avg_income  
+   - Events: binary “event_today” flag, “holiday” flag  
+   - Restaurant features: density, average rating  
+   - Normalize and encode categorical values
 
-Example dataset schema:
+**Sample Feature Schema:**
 
-| time | area_id | temp | rain | wind | rating_avg | restaurant_density | is_weekend | orders |
-|------|----------|------|------|------|-------------|--------------------|-------------|--------|
-| 2025-10-01 12:00 | A12 | 29°C | 0 | 3.2 | 4.3 | 12 | 0 | 153 |
+| timestamp | area_id | temp | rain | event_today | holiday | population_density | avg_income | rest_density | rating_avg | orders |
+|------------|----------|------|------|--------------|----------|--------------------|-------------|----------------|-------------|--------|
+| 2025-10-01 18:00 | A12 | 28.5 | 1 | 0 | 1 | 3500 | 42000 | 14 | 4.2 | 248 |
 
 ---
 
 ## ⚙️ Model Architecture
 
-**Baseline Models:**
+**Baseline Models**
 - Linear Regression  
 - Random Forest Regressor  
-- Gradient Boosted Trees (XGBoost, LightGBM)
+- Gradient Boosting (XGBoost, LightGBM)
 
-**Neural Model:**
-- Feed-Forward Neural Network (Multi-Layer Perceptron)
-  - Input: [temp, rain, wind, restaurant_density, rating_avg, hour, day_of_week, is_weekend]
-  - Hidden layers: 2–3 dense layers with ReLU activation
-  - Output: single continuous value → predicted demand
+**Neural Models**
+- Feed-Forward Neural Network (MLP)  
+  - Input: concatenated numeric & encoded categorical features  
+  - Hidden Layers: 2–3 dense layers (64–128 neurons) with ReLU  
+  - Output: continuous value (predicted demand)
 
-**Loss Function:** Mean Squared Error (MSE)  
-**Optimizer:** Adam / SGD  
-**Frameworks:** PyTorch or TensorFlow  
+**Loss Function:** MSE  
+**Optimizer:** Adam  
+**Framework:** PyTorch / TensorFlow  
 
 ---
 
@@ -88,114 +97,126 @@ Example dataset schema:
 
 | Metric | Description |
 |---------|-------------|
-| **MAE (Mean Absolute Error)** | Average absolute difference between predicted and actual demand. |
-| **RMSE (Root Mean Square Error)** | Penalizes larger errors more heavily. |
-| **R² Score** | Explains variance captured by the model. |
-| **MAPE (Mean Absolute Percentage Error)** | Relative accuracy measure (use cautiously for zero values). |
+| **MAE** | Measures average magnitude of prediction errors |
+| **RMSE** | Penalizes large deviations more than MAE |
+| **R² Score** | Proportion of variance explained by the model |
+| **MAPE** | Measures relative prediction error (for business interpretability) |
 
 ---
 
 ## 🧠 Expected Insights
 
-- High temperature + rain → lower outdoor orders, higher delivery demand.  
-- Weekends & evenings → higher average order counts.  
-- High restaurant density areas → smaller but more frequent orders.  
-- Better-rated restaurants → stable order volumes regardless of weather.
+| Factor | Insight |
+|---------|----------|
+| 🌧️ **Weather** | Rainy evenings → more delivery orders |
+| 📅 **Holidays** | Orders spike during long weekends and festivals |
+| 🎉 **Events** | Stadium concerts or sports events nearby → demand surge |
+| 👨‍👩‍👧 **Population** | Denser, younger areas have consistently higher order counts |
+| 💰 **Economy** | Higher GDP/income correlates with more premium food orders |
+| 🍕 **Restaurant Density** | High density leads to greater competition but higher total volume |
 
 ---
 
 ## 🚀 Deployment Plan
 
-**Goal:** Make the model accessible to users via a simple web interface or API.
+**Goal:** Make the model available via a REST API and interactive dashboard.
 
-### Tools:
-- **Flask / FastAPI** → REST API for model prediction.  
-- **Streamlit** → Interactive dashboard for visualization.
+- **Backend:** Flask / FastAPI  
+- **Frontend:** Streamlit Dashboard (interactive map of predicted demand)  
+- **Hosting:** Render / AWS / Streamlit Cloud  
 
-### Example Use Case:
-User inputs:
+**Example Input:**
 ```json
 {
-  "temperature": 26,
-  "rain": 1,
-  "wind": 4.2,
-  "restaurant_density": 8,
-  "avg_rating": 4.1,
-  "hour": 19,
-  "day_of_week": 5
+  "temperature": 27,
+  "rain": 0,
+  "hour": 20,
+  "day_of_week": 5,
+  "holiday": 1,
+  "event_today": 0,
+  "population_density": 4200,
+  "avg_income": 40000,
+  "restaurant_density": 12,
+  "avg_rating": 4.3
 }
 ````
 
-Model output:
+**Example Output:**
 
 ```json
 {
-  "predicted_orders": 245
+  "predicted_orders": 318
 }
 ```
-
-Dashboard may display:
-
-* Predicted order volume
-* Confidence interval
-* Weather vs demand correlation plot
 
 ---
 
 ## 🧱 System Architecture
 
 ```
-[Weather APIs]      [Restaurant Data]      [Order History]
-       │                   │                      │
-       └──► [Data Preprocessing & Feature Engineering]
-                        │
-                        ▼
-              [Machine Learning Model]
-                        │
-                        ▼
-               [Prediction API / Dashboard]
+[Weather APIs] ─┐
+[Restaurant APIs] ─┤
+[Event + Holiday APIs] ─┤
+[Demographics & Economy] ─┤
+[Order History Dataset] ─┘
+            │
+            ▼
+ [Data Cleaning + Feature Engineering]
+            │
+            ▼
+     [Machine Learning Model]
+            │
+            ▼
+ [Flask / Streamlit Deployment Layer]
 ```
 
 ---
 
-## 📆 Timeline (4 Weeks)
+## 📆 Project Timeline (4 Weeks)
 
-| Week       | Task                                                          |
-| ---------- | ------------------------------------------------------------- |
-| **Week 1** | Collect datasets from APIs & Kaggle, preprocess and merge.    |
-| **Week 2** | Feature engineering + baseline regression models.             |
-| **Week 3** | Train feed-forward neural network + model tuning.             |
-| **Week 4** | Build and deploy Flask/Streamlit app, finalize documentation. |
+| Week       | Deliverables                                                                                         |
+| ---------- | ---------------------------------------------------------------------------------------------------- |
+| **Week 1** | Collect datasets (weather, events, population, restaurant, orders). Data cleaning and schema design. |
+| **Week 2** | Merge and preprocess multi-source data. Feature engineering and baseline regression models.          |
+| **Week 3** | Train MLP and gradient boosting models. Hyperparameter tuning and model evaluation.                  |
+| **Week 4** | Build and deploy Flask API / Streamlit app. Final report and presentation.                           |
 
 ---
 
-## 💡 Future Improvements
+## 💡 Future Work
 
-* Incorporate **real-time traffic or route data** for ETA prediction.
-* Extend to **multi-city forecasting** using geospatial clustering.
-* Add **deep time-series forecasting** (e.g., LSTM, Temporal CNNs).
-* Integrate **price surge optimization** model for dynamic pricing.
+* Incorporate **real-time traffic / route ETA** data for delivery-time prediction.
+* Expand to **multi-city forecasting** using geospatial clustering.
+* Use **LSTM / Temporal CNN** for sequential modeling of hourly trends.
+* Integrate **price-surge optimization** and **driver allocation** simulations.
+* Add **demand heatmap visualization** using Mapbox or Folium.
 
 ---
 
 ## 📚 Tools & Technologies
 
-| Category          | Tools                                                    |
-| ----------------- | -------------------------------------------------------- |
-| **Programming**   | Python 3.x                                               |
-| **APIs**          | OpenWeatherMap, Yelp, Meteostat, Google Places           |
-| **Libraries**     | Pandas, NumPy, Scikit-learn, XGBoost, PyTorch/TensorFlow |
-| **Visualization** | Matplotlib, Seaborn, Plotly, Streamlit                   |
-| **Deployment**    | Flask, FastAPI, Streamlit Cloud / Render / AWS EC2       |
+| Category            | Tools                                                                      |
+| ------------------- | -------------------------------------------------------------------------- |
+| **Programming**     | Python 3.x                                                                 |
+| **APIs**            | OpenWeatherMap, Yelp, Meteostat, Public Holidays, Ticketmaster, World Bank |
+| **Libraries**       | Pandas, NumPy, Scikit-learn, PyTorch, XGBoost                              |
+| **Visualization**   | Matplotlib, Seaborn, Plotly, Streamlit                                     |
+| **Deployment**      | Flask, Streamlit Cloud, Render, AWS EC2                                    |
+| **Version Control** | GitHub, GitHub Actions (for CI/CD)                                         |
 
 ---
 
-## 🧾 References
+## 📎 References
 
-* [OpenWeatherMap API Docs](https://openweathermap.org/api)
+* [OpenWeatherMap API](https://openweathermap.org/api)
 * [Meteostat API](https://dev.meteostat.net/)
 * [Yelp Open Dataset](https://www.yelp.com/dataset)
-* [Instacart Market Basket Dataset (Kaggle)](https://www.kaggle.com/competitions/instacart-market-basket-analysis)
+* [Instacart Dataset (Kaggle)](https://www.kaggle.com/competitions/instacart-market-basket-analysis)
+* [Public Holidays API](https://date.nager.at)
+* [Ticketmaster Developer API](https://developer.ticketmaster.com/products-and-docs/apis/getting-started/)
+* [WorldPop Population Data](https://www.worldpop.org/)
+* [World Bank Open Data](https://data.worldbank.org/)
+* [Google Mobility Reports](https://www.google.com/covid19/mobility/)
 * [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview)
 
 ---
@@ -203,7 +224,7 @@ Dashboard may display:
 ## 👨‍💻 Author
 
 **Saugat Shakya**
-Bachelor of Computer Science, Kathmandu University
-Food Delivery Demand Prediction — Machine Learning Course Project
+Masters in Data Science and Artificial Intelligence
+**Food Delivery Demand Prediction — ML Course Project**
 
 ```
