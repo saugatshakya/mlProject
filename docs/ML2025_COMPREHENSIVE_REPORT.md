@@ -1500,10 +1500,6 @@ project/
 
 ---
 
-**End of Report**
-
----
-
 **Acknowledgments:**
 
 - Data provided by food delivery platform
