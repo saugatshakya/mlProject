@@ -1504,12 +1504,6 @@ project/
 
 ---
 
-**Contact:**
-
-- **Author:** Saugat Shakya
-- **Project:** ML2025 Food Delivery Intelligence System
-- **Date:** November 10, 2025
-
 **Acknowledgments:**
 
 - Data provided by food delivery platform
