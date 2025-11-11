@@ -1404,10 +1404,7 @@ document
         resultDiv.textContent = `✓ Model trained! ${metricsText}`;
         resultDiv.classList.remove("d-none");
 
-        // Enable prediction inputs (removed data leakage fields)
-        document.getElementById("promotionHour").disabled = false;
-        document.getElementById("promotionDayOfWeek").disabled = false;
-        document.getElementById("promotionType").disabled = false;
+        // Enable prediction button
         document.getElementById("predictPromotion").disabled = false;
       } else {
         alert(`Training failed: ${result.error}`);
@@ -1485,11 +1482,11 @@ document
           html += `
           <div class="metric-box">
             <h3>${formatNumber(result.baseline_orders, 1)}</h3>
-            <p>Baseline Orders (${result.promotion_period_hours || 1} hours)</p>
+            <p>Baseline Orders (${result.total_hours || 1} hours)</p>
           </div>
           <div class="metric-box">
             <h3>₹${formatNumber(result.baseline_sales, 0)}</h3>
-            <p>Baseline Sales (${result.promotion_period_hours || 1} hours)</p>
+            <p>Baseline Sales (${result.total_hours || 1} hours)</p>
           </div>
         `;
         }
@@ -1499,7 +1496,7 @@ document
           <div class="metric-box">
             <h3>${formatNumber(result.predicted_orders, 1)}</h3>
             <p>Predicted Orders (${
-              result.promotion_period_hours || 1
+              result.total_hours || 1
             } hours)</p>
           </div>
         `;
@@ -1509,7 +1506,7 @@ document
           html += `
           <div class="metric-box">
             <h3>₹${formatNumber(result.predicted_sales, 0)}</h3>
-            <p>Predicted Sales (${result.promotion_period_hours || 1} hours)</p>
+            <p>Predicted Sales (${result.total_hours || 1} hours)</p>
           </div>
         `;
         }
@@ -1599,9 +1596,6 @@ window.addEventListener("load", async () => {
 
     // Check promotion model status and enable controls if trained
     if (result.models && result.models.promotion_effectiveness) {
-      document.getElementById("promotionHour").disabled = false;
-      document.getElementById("promotionDayOfWeek").disabled = false;
-      document.getElementById("promotionType").disabled = false;
       document.getElementById("predictPromotion").disabled = false;
       console.log("Promotion model already trained - enabling controls");
     }

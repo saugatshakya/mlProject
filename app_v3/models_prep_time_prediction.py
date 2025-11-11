@@ -15,6 +15,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from xgboost import XGBRegressor
+from sklearn.ensemble import HistGradientBoostingRegressor
+
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -192,12 +194,9 @@ class PrepTimePredictionModel:
 
         # Train XGBoost model
         print("\nTraining XGBoost model...")
-        self.model = XGBRegressor(
-            n_estimators=200,
-            max_depth=6,
-            learning_rate=0.1,
-            random_state=42,
-            n_jobs=-1
+        self.model =HistGradientBoostingRegressor(
+        min_samples_leaf=20, max_iter=500, learning_rate=0.05, 
+        max_depth=8, random_state=42
         )
 
         self.model.fit(X_train_scaled, y_train)
