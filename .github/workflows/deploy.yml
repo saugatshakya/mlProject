@@ -18,29 +18,35 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Log in to Azure using service principal
-      - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Azure CLI Login
+        run: |
+          echo "Logging into Azure..."
+          az login --service-principal \
+            --username "${{ secrets.AZURE_CLIENT_ID }}" \
+            --password "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant "${{ secrets.AZURE_TENANT_ID }}"
 
-      # Log in to Azure Container Registry
-      - name: ACR Login
-        run: az acr login --name ${{ secrets.ACR_NAME }}
+          echo "Setting Azure subscription..."
+          az account set --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
-      # Build and push Docker image to ACR
-      - name: Build and Push Docker Image
+      - name: Confirm access
+        run: az account show
+
+      - name: Log in to ACR
+        run: az acr login --name ${{ env.ACR_NAME }}
+
+      - name: Build and Push Docker image
         run: |
           IMAGE_TAG=${{ github.sha }}
-          ACR_LOGIN_SERVER=$(az acr show --name ${{ secrets.ACR_NAME }} --query "loginServer" -o tsv)
+          ACR_LOGIN_SERVER=$(az acr show --name ${{ env.ACR_NAME }} --query loginServer -o tsv)
           docker build -t $ACR_LOGIN_SERVER/${{ env.IMAGE_NAME }}:$IMAGE_TAG ./app_v3
           docker push $ACR_LOGIN_SERVER/${{ env.IMAGE_NAME }}:$IMAGE_TAG
           echo "IMAGE_URI=$ACR_LOGIN_SERVER/${{ env.IMAGE_NAME }}:$IMAGE_TAG" >> $GITHUB_ENV
 
-      # Deploy to Azure Container App
       - name: Deploy to Azure Container App
         run: |
+          echo "Updating Container App to new image..."
           az containerapp update \
-            --name ${{ secrets.CONTAINERAPP_NAME }} \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --name ${{ env.CONTAINERAPP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
             --image $IMAGE_URI
