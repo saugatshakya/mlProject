@@ -1,17 +1,20 @@
-name: Build and Deploy to Azure Container App
+name: Deploy to Azure Container Apps
 
 on:
   push:
     branches:
-      - main # change if you use a different branch
-      - beta
+      - main
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: food_demand_app
+  IMAGE_NAME: food_demand
+  ACR_NAME: aitprojectsregistry
+  CONTAINERAPP_NAME: food-demand
+  RESOURCE_GROUP: containers
+  REGION: southeastasia
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -49,4 +52,4 @@ jobs:
           az containerapp update \
             --name ${{ env.CONTAINERAPP_NAME }} \
             --resource-group ${{ env.RESOURCE_GROUP }} \
-            --image $IMAGE_URI
+            --image ${{ env.IMAGE_URI }}
