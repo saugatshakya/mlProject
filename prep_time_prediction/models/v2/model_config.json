@@ -1,0 +1,16 @@
+{
+  "model_name": "HistGB",
+  "test_size": 0.2,
+  "random_state": 42,
+  "n_features": 262,
+  "best_params": {
+    "model__min_samples_leaf": 10,
+    "model__max_iter": 200,
+    "model__max_depth": null,
+    "model__learning_rate": 0.05
+  },
+  "test_mae_minutes": 3.630839298462674,
+  "test_r2": 0.2645951661731012,
+  "train_mae_minutes": 3.4472074242522686,
+  "train_r2": 0.36604203218735587
+}

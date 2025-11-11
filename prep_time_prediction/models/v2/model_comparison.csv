@@ -1,0 +1,3 @@
+model,best_params,cv_mae_minutes,train_mae_minutes,train_r2,test_mae_minutes,test_r2
+HistGB,"{'model__min_samples_leaf': 10, 'model__max_iter': 200, 'model__max_depth': None, 'model__learning_rate': 0.05}",3.6832548087814354,3.4472074242522686,0.36604203218735587,3.630839298462674,0.2645951661731012
+ElasticNet,"{'model__l1_ratio': 0.1, 'model__alpha': np.float64(0.01)}",3.799184894263521,3.713921963274298,0.22103166915888717,3.7542759772990224,0.1980184165034654

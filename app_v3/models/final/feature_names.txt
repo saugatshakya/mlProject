@@ -1,0 +1,45 @@
+hour
+day_of_week
+is_weekend
+sin_hour
+cos_hour
+Bageecha Pizza_lag1
+Bageecha Pizza_lag2
+Bageecha Pizza_lag3
+Chilli Cheese Garlic Bread_lag1
+Chilli Cheese Garlic Bread_lag2
+Chilli Cheese Garlic Bread_lag3
+Bone in Jamaican Grilled Chicken_lag1
+Bone in Jamaican Grilled Chicken_lag2
+Bone in Jamaican Grilled Chicken_lag3
+All About Chicken Pizza_lag1
+All About Chicken Pizza_lag2
+All About Chicken Pizza_lag3
+Makhani Paneer Pizza_lag1
+Makhani Paneer Pizza_lag2
+Makhani Paneer Pizza_lag3
+Margherita Pizza_lag1
+Margherita Pizza_lag2
+Margherita Pizza_lag3
+Cheesy Garlic Bread_lag1
+Cheesy Garlic Bread_lag2
+Cheesy Garlic Bread_lag3
+Jamaican Chicken Melt_lag1
+Jamaican Chicken Melt_lag2
+Jamaican Chicken Melt_lag3
+Herbed Potato_lag1
+Herbed Potato_lag2
+Herbed Potato_lag3
+Tripple Cheese Pizza_lag1
+Tripple Cheese Pizza_lag2
+Tripple Cheese Pizza_lag3
+Bageecha Pizza_smooth3
+Chilli Cheese Garlic Bread_smooth3
+Bone in Jamaican Grilled Chicken_smooth3
+All About Chicken Pizza_smooth3
+Makhani Paneer Pizza_smooth3
+Margherita Pizza_smooth3
+Cheesy Garlic Bread_smooth3
+Jamaican Chicken Melt_smooth3
+Herbed Potato_smooth3
+Tripple Cheese Pizza_smooth3

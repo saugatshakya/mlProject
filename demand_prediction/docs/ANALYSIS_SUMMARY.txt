@@ -1,0 +1,42 @@
+================================================================================
+DEMAND PREDICTION - ANALYSIS SUMMARY
+================================================================================
+
+1. MODEL COMPARISON
+--------------------------------------------------------------------------------
+                   train_mae  train_rmse  train_r2  test_mae  test_rmse   test_r2
+Linear Regression   2.261917    2.851232  0.894457  2.242788   2.878012  0.883886
+Random Forest       1.044076    1.344323  0.976538  2.712394   3.379045  0.839939
+XGBoost             2.164545    2.725607  0.903553  2.543813   3.185372  0.857761
+
+✅ Best Model: Linear Regression
+   Test R²: 0.8839
+   Test MAE: 2.24 orders
+
+2. TOP 10 MOST IMPORTANT FEATURES
+--------------------------------------------------------------------------------
+    3. is_weekend                     - 5.881946
+    8. month                          - 3.296596
+   26. dow_avg_orders                 - 1.312851
+   27. hour_dow_avg_orders            - 1.016435
+   22. is_holiday                     - 0.608064
+    2. day_of_week                    - 0.352933
+    7. cos_day                        - 0.317927
+   24. is_pre_holiday                 - 0.308916
+    6. sin_day                        - 0.210919
+   23. is_post_holiday                - 0.160105
+
+3. ABLATION STUDY RESULTS
+--------------------------------------------------------------------------------
+      experiment  n_features  test_r2  test_mae
+      FULL MODEL          27 0.857761  2.543813
+   NO TIMESERIES          15 0.864732  2.457781
+     NO TEMPORAL          13 0.825979  2.791997
+     NO PATTERNS          26 0.857761  2.543813
+ONLY TIME-SERIES          12 0.808159  2.894974
+
+4. KEY FINDINGS
+--------------------------------------------------------------------------------
+   • Baseline (FULL MODEL) R²: 0.8578
+   • Most critical feature group: ONLY TIME-SERIES
+     - Removing causes R² drop of 0.0496 (5.78%)

@@ -1,0 +1,57 @@
+Bill subtotal
+Packaging charges
+Total
+Distance_km
+holiday
+wx_temp_c
+wx_precip_mm
+wx_cloud_cover_pct
+num_complex_dishes
+has_complex_dish
+num_items
+total_discount_amt
+has_discount
+disc_bundle
+disc_flat
+disc_none
+disc_percent
+order_hour
+order_dayofweek
+is_weekend
+hour_local
+is_lunch_peak
+is_dinner_peak
+is_peak_hour
+order_hour_sin
+order_hour_cos
+has_event
+event_Christmas Day
+event_Diwali / Deepavali
+event_Dussehra / Vijayadashami
+event_Ganesh Chaturthi
+event_Guru Nanak Jayanti / Gurpurab
+event_Karva Chauth
+event_Muharram
+event_Navratri Begins
+event_New Year’s Eve
+event_No significant event
+event_Teachers’ Day
+Subzone_Chittaranjan Park
+Subzone_DLF Phase 1
+Subzone_Greater Kailash 2 (GK2)
+Subzone_Sector 135
+Subzone_Sector 4
+Subzone_Shahdara
+Subzone_Sikandarpur
+Subzone_Vasant Kunj
+orders_last_30min
+avg_item_value
+complexity_ratio
+is_big_order
+is_high_value_order
+is_high_load
+is_peak_weekend
+num_complex_capped
+rest_mean_KPT
+rest_p75_KPT
+rest_mean_wait

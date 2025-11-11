@@ -1,0 +1,53 @@
+feature,importance,category
+Bone in Jamaican Grilled Chicken_smooth,6.1768334995405905,Historical
+Bageecha Pizza_smooth,6.0081687554401295,Historical
+Margherita Pizza_smooth,5.9537547612214645,Historical
+Chilli Cheese Garlic Bread_smooth,5.952463538649027,Historical
+Cheesy Garlic Bread_smooth,5.951035670832335,Historical
+Makhani Paneer Pizza_smooth,5.941493607161708,Historical
+All About Chicken Pizza_smooth,5.897958426620315,Historical
+Tripple Cheese Pizza_smooth,5.791614025580917,Historical
+Jamaican Chicken Melt_smooth,5.501638807916726,Historical
+Herbed Potato_smooth,5.199262673564325,Historical
+Herbed Potato_lag2,2.5510986606728787,Historical
+sin_hour,2.449009190531594,Temporal
+Herbed Potato_lag1,2.235709363746437,Historical
+Chilli Cheese Garlic Bread_lag2,2.103885651778714,Historical
+Jamaican Chicken Melt_lag1,1.9978496557856473,Historical
+Chilli Cheese Garlic Bread_lag1,1.9515419810662151,Historical
+Tripple Cheese Pizza_lag2,1.9236395030169013,Historical
+Cheesy Garlic Bread_lag1,1.9032229089411423,Historical
+Cheesy Garlic Bread_lag2,1.8838928651338478,Historical
+Bone in Jamaican Grilled Chicken_lag2,1.8658892848028699,Historical
+Tripple Cheese Pizza_lag1,1.8566898890475385,Historical
+Makhani Paneer Pizza_lag2,1.8079041870910124,Historical
+Jamaican Chicken Melt_lag2,1.8026049325913072,Historical
+Makhani Paneer Pizza_lag1,1.7791085370947173,Historical
+Margherita Pizza_lag2,1.7671423708380114,Historical
+Margherita Pizza_lag1,1.6138659189155775,Historical
+All About Chicken Pizza_lag2,1.6048731148114386,Historical
+Bageecha Pizza_lag2,1.5007587770143076,Historical
+All About Chicken Pizza_lag1,1.4019215028164622,Historical
+Bageecha Pizza_lag1,1.3993040778294765,Historical
+Bone in Jamaican Grilled Chicken_lag1,1.3917774793000084,Historical
+cos_hour,0.9047492115137301,Temporal
+hour,0.4535938260159508,Other
+env_rhum,0.26708343531859696,Weather
+env_temp,0.17083839546485835,Weather
+day_of_week,0.1372600014000028,Temporal
+Bone in Jamaican Grilled Chicken_lag3,0.13641401024834804,Historical
+Makhani Paneer Pizza_lag3,0.12563609957229174,Historical
+Cheesy Garlic Bread_lag3,0.08665263139610463,Historical
+All About Chicken Pizza_lag3,0.08564696464599522,Historical
+Chilli Cheese Garlic Bread_lag3,0.08328961996691321,Historical
+Jamaican Chicken Melt_lag3,0.07758003911375433,Historical
+Bageecha Pizza_lag3,0.07181447559918348,Historical
+Herbed Potato_lag3,0.05744841837990807,Historical
+Tripple Cheese Pizza_lag3,0.056052963814091514,Historical
+Margherita Pizza_lag3,0.0474890868737384,Historical
+env_wspd,0.02907388695870807,Weather
+has_event,0.016293796600043462,Events
+env_precip,0.014210300535064247,Weather
+aqi,0.007854884787971883,Pollution
+is_weekend,0.005104332441106278,Temporal
+holiday,0.0,Events

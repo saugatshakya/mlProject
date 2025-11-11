@@ -1,0 +1,143 @@
+================================================================================
+ABLATION STUDY - FEATURE GROUP IMPACT ANALYSIS
+================================================================================
+
+Loading data...
+✓ Loaded 2505 samples
+
+Creating lag features...
+✓ All features created
+
+================================================================================
+FEATURE GROUPS
+================================================================================
+TEMPORAL       :  5 features
+WEATHER        :  4 features
+POLLUTION      :  6 features
+EVENTS         :  2 features
+HISTORICAL     : 40 features
+================================================================================
+
+Train size: 2004
+Test size:  501
+
+================================================================================
+RUNNING ABLATION EXPERIMENTS
+================================================================================
+
+================================================================================
+EXPERIMENT: FULL MODEL
+Description: All features: temporal + weather + pollution + events + historical
+Features: 57
+================================================================================
+Training model...
+Evaluating...
+
+✓ Results:
+  Mean R² (train): 0.9998
+  Mean R² (test):  0.9481
+  Mean MAE (test): 0.0675
+
+================================================================================
+EXPERIMENT: NO WEATHER
+Description: All features EXCEPT weather (temp, humidity, precip, wind)
+Features: 53
+================================================================================
+Training model...
+Evaluating...
+
+✓ Results:
+  Mean R² (train): 0.9998
+  Mean R² (test):  0.9439
+  Mean MAE (test): 0.0686
+
+================================================================================
+EXPERIMENT: NO POLLUTION
+Description: All features EXCEPT pollution (AQI, PM2.5, PM10, NO2, O3, CO)
+Features: 51
+================================================================================
+Training model...
+Evaluating...
+
+✓ Results:
+  Mean R² (train): 0.9998
+  Mean R² (test):  0.9476
+  Mean MAE (test): 0.0657
+
+================================================================================
+EXPERIMENT: NO EVENTS
+Description: All features EXCEPT events/holidays
+Features: 55
+================================================================================
+Training model...
+Evaluating...
+
+✓ Results:
+  Mean R² (train): 0.9998
+  Mean R² (test):  0.9440
+  Mean MAE (test): 0.0694
+
+================================================================================
+EXPERIMENT: NO TEMPORAL
+Description: All features EXCEPT temporal (hour, day_of_week, etc.)
+Features: 52
+================================================================================
+Training model...
+Evaluating...
+
+✓ Results:
+  Mean R² (train): 0.9998
+  Mean R² (test):  0.9452
+  Mean MAE (test): 0.0666
+
+================================================================================
+EXPERIMENT: ONLY HISTORICAL
+Description: Only historical lag features (no weather, pollution, events, or temporal)
+Features: 40
+================================================================================
+Training model...
+Evaluating...
+
+✓ Results:
+  Mean R² (train): 0.9998
+  Mean R² (test):  0.9545
+  Mean MAE (test): 0.0579
+
+================================================================================
+EXPERIMENT: NO EXTERNAL DATA
+Description: Only historical + temporal (NO weather, pollution, or events)
+Features: 45
+================================================================================
+Training model...
+Evaluating...
+
+✓ Results:
+  Mean R² (train): 0.9998
+  Mean R² (test):  0.9501
+  Mean MAE (test): 0.0641
+
+================================================================================
+CREATING VISUALIZATIONS
+================================================================================
+
+================================================================================
+ABLATION STUDY RESULTS
+================================================================================
+      Experiment                                                               Description  Features  Train R²  Test R²  Test MAE   R² Drop  R² Drop %
+      FULL MODEL        All features: temporal + weather + pollution + events + historical        57  0.999827 0.948084  0.067465  0.000000   0.000000
+      NO WEATHER                All features EXCEPT weather (temp, humidity, precip, wind)        53  0.999805 0.943905  0.068555  0.004179   0.440784
+    NO POLLUTION             All features EXCEPT pollution (AQI, PM2.5, PM10, NO2, O3, CO)        51  0.999807 0.947604  0.065651  0.000480   0.050626
+       NO EVENTS                                       All features EXCEPT events/holidays        55  0.999805 0.943977  0.069449  0.004107   0.433194
+     NO TEMPORAL                    All features EXCEPT temporal (hour, day_of_week, etc.)        52  0.999835 0.945172  0.066562  0.002912   0.307146
+ ONLY HISTORICAL Only historical lag features (no weather, pollution, events, or temporal)        40  0.999847 0.954488  0.057861 -0.006404  -0.675499
+NO EXTERNAL DATA             Only historical + temporal (NO weather, pollution, or events)        45  0.999820 0.950136  0.064084 -0.002052  -0.216455
+================================================================================
+
+✓ Saved: /Users/saugatshakya/Projects/ML2025/project/dish_prediction/reports/figures/ablation_study/01_ablation_study_overview.png
+✓ Saved: /Users/saugatshakya/Projects/ML2025/project/dish_prediction/reports/figures/ablation_study/02_ablation_per_dish_analysis.png
+Traceback (most recent call last):
+  File "/Users/saugatshakya/Projects/ML2025/project/dish_prediction/src/analysis/ablation_study.py", line 540, in <module>
+    ax3.set_xticklabels([f"{i}. {row['Group']}" for i, row in enumerate(impact_df.itertuples(), 1)],
+  File "/Users/saugatshakya/Projects/ML2025/project/dish_prediction/src/analysis/ablation_study.py", line 540, in <listcomp>
+    ax3.set_xticklabels([f"{i}. {row['Group']}" for i, row in enumerate(impact_df.itertuples(), 1)],
+TypeError: tuple indices must be integers or slices, not str

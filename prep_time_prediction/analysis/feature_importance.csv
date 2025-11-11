@@ -1,0 +1,266 @@
+feature,importance
+order_complexity,0.038161337
+dish_Tipsy Tiger Fresh Lime Soda,0.03701045
+num_items,0.034116253
+num_unique_dishes,0.03202081
+dish_Coleslaw,0.020358868
+dish_Margherita Pizza,0.0188203
+dish_Cheesy Garlic Bread,0.01877372
+dish_Cafreal Sauce,0.015887383
+dish_Chilli Cheese Garlic Bread,0.015424981
+dish_Bone in Kabuli Grilled Chicken,0.014745621
+dish_Bone in Jamaican Grilled Chicken,0.013832932
+dish_Murgh Amritsari Seekh Pide,0.012493178
+dish_Bone in Peri Peri Grilled Chicken,0.012491142
+dish_Peri Peri Grilled Chicken Pizza,0.011847621
+dish_Bone in Smoky Bbq Grilled Chicken,0.011825067
+dish_Grilled Chicken Jamaican Tender,0.011473439
+dish_Murgh Amritsari Garlic Bread,0.010687725
+dish_Just Pepperoni Pide,0.01052017
+dish_All About Chicken Pizza,0.0105037745
+dish_Loaded Korean Grilled Chicken Pizza,0.010427574
+dish_Tipsy Tiger Ginger Ale,0.010319926
+dish_Classic Bacon Melt Tenderloin Burger,0.010281488
+dish_Indian Salsa,0.010129647
+dish_Garlic Aioli,0.009634782
+dish_Jamaican Chicken Melt,0.0093285525
+dish_Indian Masala Fries,0.009203028
+dish_Angara Sauce,0.009161722
+dish_Peanut Butter Chocolate Pide,0.008862713
+dish_Peri Peri Chicken Melt,0.008643833
+dish_Mayonnaise,0.008402171
+dish_AAC Signature Crisper Fries,0.008190798
+dish_Bacon Pepperoni Melt,0.008042986
+dish_Grilled Chicken Tangdi,0.007980316
+dish_AAC Signature Fries,0.00791859
+dish_Onion Rings,0.007881837
+dish_Pepperoni Garlic Bread,0.007820473
+dish_Peri Peri Crisper Fries,0.0077396706
+dish_Bone in Angara Grilled Chicken,0.007632848
+dish_Crushed Papad,0.007343952
+dish_AAC Grilled Chicken Burger,0.007284711
+dish_Chicken 65 Boneless Grilled Chicken Breast,0.007257375
+dish_OG Cheese Pide,0.0070907185
+dish_Dirty Saucy Fries,0.007008453
+dish_Carribean Jerk Boneless Grilled Chicken Breast,0.006915079
+dish_AAC Grilled Paneer Burger,0.0066197873
+dish_Angara Grilled Paneer (8 pcs),0.0064689345
+dish_Iced Green Tea - Peach,0.006436697
+dish_Grilled Chicken Jamaican Tangdi,0.00634924
+dish_Dynamite sauce,0.0063383426
+dish_Iced Green Tea - Mojito,0.006291382
+dish_Loaded Jamaican Grilled Chicken Pizza,0.0062883524
+dish_Angara Boneless Grilled Chicken Breast,0.0062857945
+dish_Salted Crisper Fries,0.006261844
+dish_Bone in Jamaican Grilled Chicken Quarter + Angara Rice,0.0061628344
+dish_Grilled Chicken Smoky BBQ Tender,0.0059255906
+dish_Desi Chicken Pepperoni Pizza,0.0059065884
+dish_Grilled Chicken Peri Peri Tender,0.005872763
+dish_Raw Masala Lemon Shikanji,0.0058647236
+is_lunch_peak,0.0058312616
+dish_Desi Pepperoni Pizza,0.005824675
+dish_GhostBuster Sauce,0.0057596564
+dish_Fried Chicken Peri Peri Tenders + Peri Peri Fries,0.00572746
+hour_sin,0.005682597
+dish_Indian Masala Cripser Fries,0.0056418646
+dish_Tripple Cheese Pizza,0.005621997
+dish_Mushroom Pizza,0.0053876396
+dish_Kabuli Grilled Paneer (8 pcs),0.0051511605
+dish_Ooh Saucy Fries,0.005121298
+dish_Animal Fries,0.0051085986
+dish_Bageecha Pizza,0.005102411
+dish_Harisa Mayo,0.0050926325
+dish_Malai Gud Pide,0.005062989
+dish_Grilled Chicken Angara Tangdi,0.005004411
+dish_Mutton Seekh Pide,0.004989429
+dish_Fried Chicken Angara Tender,0.0049685333
+dish_Chicken Pepperoni Pizza,0.0049003083
+dish_Onion Bombs,0.004881177
+dish_Indian Pico De-Gallo,0.004813443
+dish_Peri Peri Paneer Pizza,0.004765258
+dish_Mutton Seekh Pizza,0.0047513302
+avg_dish_popularity,0.0047505936
+dish_Herbed Potato,0.0047211633
+dish_Murgh Amritsari Seekh Melt,0.004710873
+dish_Angara Aloo Tuk Tuki,0.0046827532
+dish_Just Pepperoni Pizza,0.0046791323
+hour_cos,0.004584686
+dish_Makhani Paneer Pizza,0.004559565
+items_last_30min,0.00445453
+is_early_morning,0.004422966
+dish_Bellpepper Onion Pizza,0.004327409
+dish_Masala Omelette Pide,0.0042398125
+dish_Grilled Chicken Tangdi Jamaican + Salted Krispers,0.004211446
+dish_Dirty Saucy Chicken Loaded Fries,0.004164761
+dish_Peri Peri Boneless Grilled Chicken Breast,0.0041093407
+dish_Grilled Chicken Angara Tender,0.0040365853
+month,0.0040131807
+dish_Fried Chicken Peri Peri Tender,0.0039295317
+dish_Fried Chicken Ghostbuster Tender,0.0039285338
+hour,0.003893659
+dish_Masala Paneer Pide,0.0038765005
+dish_diversity,0.003849488
+is_weekend,0.0038210028
+orders_last_30min,0.0038134274
+dish_Harissa Mayo,0.003757436
+dish_Angara Rice,0.0037183505
+dish_Mutton Smashed Burger,0.0037158658
+dish_Smoky BBQ Sauce,0.0037105924
+max_dish_quantity,0.0037039786
+dish_Murgh Amritsari Seekh Pizza,0.0036724948
+dish_Smoky BBQ Boneless Grilled Chicken Breast,0.0036579606
+dish_Fried Chicken Boneless Bites - 6pcs,0.003593772
+dish_Fried Chicken Tenders,0.003593742
+day_of_month,0.0035259807
+dish_Fried Chicken Kabuli Tender,0.0035159474
+dish_India Dynamite sauce,0.0035030083
+dish_Fried Chicken Strips,0.0034615214
+dish_Angara Paneer Melt,0.00344758
+dish_Chocolate Walnut Brownie,0.0034338823
+is_high_load,0.0033730827
+dish_Spinach Sumac Pide,0.0033480364
+dish_Fried Chicken Beast AAC Burger,0.0033355271
+dish_AAC Special Slaw,0.0033255264
+dish_Salted Fries,0.003283969
+day_sin,0.003273588
+dish_Masala Potato Pide,0.003249667
+dish_Grilled Chicken Peri Peri Tangdi,0.0032269629
+dish_Peri Peri Paneer Melt,0.003175644
+dish_Tenderloin Smashed Burger,0.0031590152
+dish_AAC Fried Paneer Burger,0.0031414463
+dish_Peri Peri Fries,0.0031164847
+dish_Fried Chicken Classic Tender,0.0031135713
+dish_Grilled Tangdis,0.0030840426
+dish_AAC Fried Chicken Burger,0.0030796495
+day_cos,0.0030013807
+dish_Jamaican Sauce,0.0029735472
+dish_Grilled Chicken Angara Tenders + Salted Fries,0.0029388487
+day_of_week,0.002883639
+is_late_night,0.00277556
+dish_AAC Saucy Fries,0.0027335996
+dish_Red Rice,0.002727648
+dish_Malvani Boneless Grilled Chicken Breast,0.002700556
+dish_Grilled Chicken Ghostbuster Tangdi,0.0026275283
+dish_Fried Chicken Tangdi - 2pcs,0.0025965706
+dish_Mushroom Mozzarella Melt,0.002493918
+dish_Grilled Chicken Dirty Burger,0.0024435031
+is_dinner_peak,0.0023572936
+dish_Grilled Chicken Smoky BBQ Tangdi,0.0009060968
+dish_Peri Peri Sauce,0.0
+dish_Peri Peri dip,0.0
+dish_Salted Fries .,0.0
+dish_Raw Mint Mojito Iced Tea,0.0
+dish_Chicken Smashed Burger,0.0
+dish_Chicken Smashed Double Burger,0.0
+dish_Raw Peach Iced Tea,0.0
+dish_Chicken 69,0.0
+dish_Chicken 65 Grilled Chicken Tangdi (4pcs),0.0
+dish_Chicken Smashed Burgers .,0.0
+dish_Grilled Chicken Jamaican Tender .,0.0
+dish_Peri Peri Krispers,0.0
+dish_Peri Peri Ketchup,0.0
+dish_Peri Peri Grilled Chicken Tangdi (4pcs),0.0
+dish_Signature Smashed Tenderloin Burger,0.0
+dish_Peri Peri Grilled Chicken Quarter,0.0
+dish_Chilli Cheese Garlic Bread .,0.0
+dish_Peri Peri Fries .,0.0
+dish_Classic Bacon Melt Tenderloin Burger .,0.0
+dish_Peri Peri Crispers Fries,0.0
+dish_Combo For 1,0.0
+dish_Combo For 1 - Non Veg,0.0
+dish_Combo For 1 - Veg,0.0
+dish_Combo for 2 - Non Veg,0.0
+dish_Combo for 2 - Veg,0.0
+dish_Salted Krispers,0.0
+dish_Carribean Jerk dip,0.0
+dish_Chicken 65 Grilled Chicken Quarter,0.0
+dish_Bone in Jamaican Grilled Chicken .,0.0
+dish_AAC Grilled Chicken Burger .,0.0
+dish_AAC Signature Krispers,0.0
+dish_Angara Grilled Chicken Quarter,0.0
+dish_Angara Grilled Chicken Tangdi (4pcs),0.0
+dish_Angara Paneer Steak,0.0
+dish_Animal Fries .,0.0
+dish_Atomic Veg Burger,0.0
+dish_Atomic Veg Burger .,0.0
+dish_BC Burger,0.0
+dish_Bageecha Pizza .,0.0
+dish_Bangin' Soya Burger,0.0
+dish_Bone in Angara Grilled Chicken .,0.0
+dish_Bone in Peri Peri Grilled Chicken .,0.0
+dish_Smoky BBQ Grilled Chicken Quarter,0.0
+dish_Bone in Smoky Bbq Grilled Chicken .,0.0
+dish_Brocolli Onion Pizza,0.0
+dish_Very Peri Tenderloin Burger,0.0
+dish_Butter Chicken Grilled Burger,0.0
+dish_Cafreal dip,0.0
+dish_Carribean Jerk Grilled Chicken Quarter,0.0
+dish_Tenderloin Smashed Double Burger,0.0
+dish_Carribean Jerk Grilled Chicken Tangdi (4pcs),0.0
+dish_Combo for 4 - Veg,0.0
+dish_Smoky BBQ dip,0.0
+dish_Cheesy Veg Burger,0.0
+dish_Smoky BBQ Grilled Chicken Tangdi (4pcs),0.0
+dish_Paneer 65 Paneer Steak,0.0
+dish_Og Cheese Burger,0.0
+dish_Ooh Masala Fries,0.0
+dish_Korean Fried Chicken Slider,0.0
+dish_Fried Chicken Dirty Burger,0.0
+dish_Fried Chicken Kabuli Tender .,0.0
+dish_Fried Chicken Peri Peri Tender .,0.0
+dish_Jamaican Chicken Melt .,0.0
+dish_Fried Chicken Tangdi - 4pcs,0.0
+dish_Fried Mushroom Burger,0.0
+dish_Fried Paneer Angara Slider,0.0
+dish_Fried Paneer Burger .,0.0
+dish_Indian Honey Mustard sauce,0.0
+dish_Grilled Chicken 69 Burger,0.0
+dish_Grilled Chicken Afghani Boneless Breast,0.0
+dish_Grilled Chicken Angara Boneless Breast,0.0
+dish_Honey Mustard sauce,0.0
+dish_Grilled Chicken Angara Tender .,0.0
+dish_Grlld Vegetables,0.0
+dish_Grlld Potatoes,0.0
+dish_Grlld Masala Fries,0.0
+dish_Grilled Chicken Dirty Burger .,0.0
+dish_Grilled Paneer Burger .,0.0
+dish_Grilled Paneer Burger,0.0
+dish_Grilled Paneer Angara Slider,0.0
+dish_Grilled Paneer Afghani Slider,0.0
+dish_Grilled Chicken Double Dirty Burger,0.0
+dish_Grilled Chicken Smoky Bbq Boneless Breast,0.0
+dish_Grilled Chicken Smoky BBQ Tender .,0.0
+dish_Grilled Chicken Jamaican Boneless Breast,0.0
+dish_Grilled Chicken Peri Peri Tender .,0.0
+dish_Korean Fried Chicken Burger,0.0
+dish_Loaded Chicken Pepperoni Pizza,0.0
+dish_Cous Cous,0.0
+dish_Fried Chicken Desi Peri Peri Bites (Bone),0.0
+dish_Desi Masala Crispers Fries,0.0
+dish_Grilled Chicken Jamaican Slider,0.0
+dish_Desi Masala Fries,0.0
+dish_OG Cheese Burger,0.0
+dish_Mutton Smashed Double Burger,0.0
+dish_Dirty Grilled Paneer Burger,0.0
+dish_Dirty Indian Masala Crisper Fries,0.0
+dish_Dirty Indian Masala Fries,0.0
+dish_Dirty Indian Slaw,0.0
+dish_Dirty Indian Soya Chunks,0.0
+dish_Dirty Masala Fries,0.0
+dish_Dirty Saucy Chicken Loaded Fries .,0.0
+dish_Fire Alarm Tenderloin Burger,0.0
+dish_Mint Mayonnaise,0.0
+dish_Fried Chicken Angara Slider,0.0
+dish_Fried Chicken Angara Tender .,0.0
+dish_Fried Chicken Beast Burger,0.0
+dish_Fried Chicken Bites (Bone) - 4pcs,0.0
+dish_Fried Chicken Bites (Bone) - 8pcs,0.0
+dish_Malvani Paneer Steak,0.0
+dish_Malvani Grilled Chicken Tangdi (4pcs),0.0
+dish_Malvani Grilled Chicken Quarter,0.0
+dish_Fried Chicken Boneless Bites - 10pcs,0.0
+dish_Makhani Paneer Pizza .,0.0
+dish_Fried Chicken Classic Tender .,0.0
+dish_Loaded Pork Pepperoni Pizza,0.0
+dish_Fried Chicken Classic Tenders + AAC Signature Fries,0.0
+dish_Grilled Chicken Peri Peri Boneless Breast,0.0

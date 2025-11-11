@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ML2025 Multi-Model App</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        margin: 0;
+        font-weight: 700;
+      }
+
+      .header p {
+        margin: 0.5rem 0 0 0;
+        opacity: 0.9;
+      }
+
+      .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+      }
+
+      .card-header {
+        background-color: #667eea;
+        color: white;
+        border-radius: 12px 12px 0 0 !important;
+        font-weight: 600;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 8px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      }
+
+      .nav-tabs .nav-link {
+        color: #667eea;
+        font-weight: 600;
+        border: none;
+        border-bottom: 3px solid transparent;
+      }
+
+      .nav-tabs .nav-link.active {
+        color: #667eea;
+        background-color: transparent;
+        border-bottom: 3px solid #667eea;
+      }
+
+      .metric-box {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .metric-box h3 {
+        font-size: 2.5rem;
+        margin: 0;
+        font-weight: 700;
+      }
+
+      .metric-box p {
+        margin: 0.5rem 0 0 0;
+        opacity: 0.9;
+      }
+
+      .predictions-table {
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      .spinner-border {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .alert {
+        border-radius: 8px;
+      }
+
+      .form-control,
+      .form-select {
+        border-radius: 8px;
+      }
+
+      .status-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+
+      .status-trained {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .status-not-trained {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .recommendation-item {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        border-left: 4px solid #667eea;
+      }
+
+      .csv-preview {
+        max-height: 300px;
+        overflow: auto;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-family: "Courier New", monospace;
+        font-size: 0.875rem;
+      }
+
+      .csv-preview table {
+        width: 100%;
+        margin: 0;
+      }
+
+      .csv-preview th {
+        background-color: #667eea;
+        color: white;
+        position: sticky;
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="container">
+        <h1>🍽️ ML2025 Multi-Model Application</h1>
+        <p>Food Delivery Prediction & Recommendation System</p>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mb-4" id="modelTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="dish-pred-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#dish-pred"
+            type="button"
+            role="tab"
+          >
+            📊 Dish Prediction
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="demand-pred-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#demand-pred"
+            type="button"
+            role="tab"
+          >
+            📈 Demand Prediction
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="dish-rec-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#dish-rec"
+            type="button"
+            role="tab"
+          >
+            🎯 Dish Recommendation
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="prep-time-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#prep-time"
+            type="button"
+            role="tab"
+          >
+            ⏱️ Prep Time Prediction
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="promotion-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#promotion"
+            type="button"
+            role="tab"
+          >
+            📊 Promotion Effectiveness
+          </button>
+        </li>
+      </ul>
+
+      <!-- Tab Content -->
+      <div class="tab-content" id="modelTabsContent">
+        <!-- DISH PREDICTION TAB -->
+        <div class="tab-pane fade show active" id="dish-pred" role="tabpanel">
+          <!-- Requirements Info -->
+          <div class="alert alert-info">
+            <strong>📋 CSV Requirements:</strong><br />
+            • Must have <code>timestamp</code> column (datetime format)<br />
+            • Include columns for each dish (e.g., Burger, Pizza, Coke)<br />
+            • Minimum 200+ rows recommended for stable results<br />
+            • Example: <code>timestamp,Burger,Pizza,Coke,Fries</code>
+          </div>
+
+          <div class="row">
+            <!-- Training Section -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">🚀 Step 1: Load Data</div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label">Upload Training Data</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="dishPredFile"
+                      accept=".csv"
+                    />
+                  </div>
+
+                  <div class="text-center mb-3" style="color: #999">— OR —</div>
+
+                  <div class="d-grid gap-2 mb-3">
+                    <button class="btn btn-success" id="useOriginalDishData">
+                      📦 Use Original Data (2555 hours, 15 dishes)
+                    </button>
+                  </div>
+
+                  <div class="text-center mb-3" style="color: #999">— OR —</div>
+
+                  <div class="input-group mb-3">
+                    <button
+                      class="btn btn-outline-secondary"
+                      id="generateDishData"
+                    >
+                      Generate Sample Data
+                    </button>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="dishDataRows"
+                      value="1008"
+                      placeholder="Rows"
+                    />
+                  </div>
+
+                  <div
+                    class="alert alert-success d-none"
+                    id="dishDataGenerated"
+                  ></div>
+
+                  <!-- CSV Preview -->
+                  <div id="dishPredPreview" class="csv-preview d-none"></div>
+                </div>
+              </div>
+
+              <div class="card mt-3">
+                <div class="card-header">🚀 Step 2: Train Model</div>
+                <div class="card-body">
+                  <button class="btn btn-primary w-100" id="trainDishPred">
+                    <span
+                      class="spinner-border spinner-border-sm d-none"
+                      id="trainDishPredSpinner"
+                    ></span>
+                    Train Model
+                  </button>
+
+                  <div
+                    class="alert alert-info mt-3 d-none"
+                    id="dishPredTrainResult"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Metrics -->
+              <div class="card mt-3">
+                <div class="card-header">📏 Model Metrics</div>
+                <div class="card-body">
+                  <div id="dishPredMetrics">
+                    <p class="text-muted text-center">
+                      Train a model to see metrics
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prediction Section -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">🔮 Step 3: Make Predictions</div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >Hours Ahead (1-24, or leave empty for next hour)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="dishPredHour"
+                      min="1"
+                      max="24"
+                      placeholder="1 = next hour, 12 = 12 hours from now"
+                    />
+                  </div>
+
+                  <button
+                    class="btn btn-primary w-100"
+                    id="predictDishPred"
+                    disabled
+                  >
+                    <span
+                      class="spinner-border spinner-border-sm d-none"
+                      id="predictDishPredSpinner"
+                    ></span>
+                    Predict Demand
+                  </button>
+
+                  <div class="mt-3" id="dishPredPredictions"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEMAND PREDICTION TAB -->
+        <div class="tab-pane fade" id="demand-pred" role="tabpanel">
+          <!-- Requirements Info -->
+          <div class="alert alert-info">
+            <strong>📋 CSV Requirements:</strong><br />
+            • Must have <code>timestamp</code> column (datetime format)<br />
+            • Must have <code>total_orders</code> column (integer)<br />
+            • Minimum 200+ rows recommended for stable results<br />
+            • Example: <code>timestamp,total_orders</code>
+          </div>
+
+          <div class="row">
+            <!-- Training Section -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">🚀 Step 1: Load Data</div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label">Upload Training Data</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="demandPredFile"
+                      accept=".csv"
+                    />
+                  </div>
+
+                  <div class="text-center mb-3" style="color: #999">— OR —</div>
+
+                  <div class="d-grid gap-2 mb-3">
+                    <button class="btn btn-success" id="useOriginalDemandData">
+                      📦 Use Original Data (2555 hours)
+                    </button>
+                  </div>
+
+                  <div class="text-center mb-3" style="color: #999">— OR —</div>
+
+                  <div class="input-group mb-3">
+                    <button
+                      class="btn btn-outline-secondary"
+                      id="generateDemandData"
+                    >
+                      Generate Sample Data
+                    </button>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="demandDataRows"
+                      value="1008"
+                      placeholder="Rows"
+                    />
+                  </div>
+
+                  <div
+                    class="alert alert-success d-none"
+                    id="demandDataGenerated"
+                  ></div>
+
+                  <!-- CSV Preview -->
+                  <div id="demandPredPreview" class="csv-preview d-none"></div>
+                </div>
+              </div>
+
+              <div class="card mt-3">
+                <div class="card-header">🚀 Step 2: Train Model</div>
+                <div class="card-body">
+                  <button class="btn btn-primary w-100" id="trainDemandPred">
+                    <span
+                      class="spinner-border spinner-border-sm d-none"
+                      id="trainDemandPredSpinner"
+                    ></span>
+                    Train Model
+                  </button>
+
+                  <div
+                    class="alert alert-info mt-3 d-none"
+                    id="demandPredTrainResult"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Metrics -->
+              <div class="card mt-3">
+                <div class="card-header">📏 Model Metrics</div>
+                <div class="card-body">
+                  <div id="demandPredMetrics">
+                    <p class="text-muted text-center">
+                      Train a model to see metrics
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prediction Section -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">🔮 Step 3: Make Predictions</div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label">Number of Hours to Predict</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="demandPredHours"
+                      min="1"
+                      max="168"
+                      value="24"
+                    />
+                  </div>
+
+                  <button
+                    class="btn btn-primary w-100"
+                    id="predictDemandPred"
+                    disabled
+                  >
+                    <span
+                      class="spinner-border spinner-border-sm d-none"
+                      id="predictDemandPredSpinner"
+                    ></span>
+                    Predict Demand
+                  </button>
+
+                  <div class="mt-3" id="demandPredPredictions"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DISH RECOMMENDATION TAB -->
+        <div class="tab-pane fade" id="dish-rec" role="tabpanel">
+          <!-- Requirements Info -->
+          <div class="alert alert-info">
+            <strong>📋 CSV Requirements:</strong><br />
+            • Must have <code>order_id</code> column<br />
+            • Either <code>items</code> column (comma-separated) OR
+            <code>dish_name</code> column<br />
+            • Minimum 500+ orders recommended for good associations<br />
+            • Example 1: <code>order_id,items</code> →
+            <code>1,"Pizza, Coke, Fries"</code><br />
+            • Example 2: <code>order_id,dish_name</code> → one row per dish
+          </div>
+
+          <div class="row">
+            <!-- Training Section -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">🚀 Step 1: Load Data</div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label">Upload Training Data</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="dishRecFile"
+                      accept=".csv"
+                    />
+                  </div>
+
+                  <div class="text-center mb-3" style="color: #999">— OR —</div>
+
+                  <div class="d-grid gap-2 mb-3">
+                    <button class="btn btn-success" id="useOriginalOrderData">
+                      📦 Use Original Data (21,321 orders)
+                    </button>
+                  </div>
+
+                  <div class="text-center mb-3" style="color: #999">— OR —</div>
+
+                  <div class="input-group mb-3">
+                    <button
+                      class="btn btn-outline-secondary"
+                      id="generateOrderData"
+                    >
+                      Generate Sample Data
+                    </button>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="orderDataRows"
+                      value="1000"
+                      placeholder="Orders"
+                    />
+                  </div>
+
+                  <div
+                    class="alert alert-success d-none"
+                    id="orderDataGenerated"
+                  ></div>
+
+                  <!-- CSV Preview -->
+                  <div id="dishRecPreview" class="csv-preview d-none"></div>
+                </div>
+              </div>
+
+              <div class="card mt-3">
+                <div class="card-header">🚀 Step 2: Train Model</div>
+                <div class="card-body">
+                  <button class="btn btn-primary w-100" id="trainDishRec">
+                    <span
+                      class="spinner-border spinner-border-sm d-none"
+                      id="trainDishRecSpinner"
+                    ></span>
+                    Train Model
+                  </button>
+
+                  <div
+                    class="alert alert-info mt-3 d-none"
+                    id="dishRecTrainResult"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Metrics -->
+              <div class="card mt-3">
+                <div class="card-header">📏 Model Metrics</div>
+                <div class="card-body">
+                  <div id="dishRecMetrics">
+                    <p class="text-muted text-center">
+                      Train a model to see metrics
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recommendation Section -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">🎯 Step 3: Get Recommendations</div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >Select Dishes (hold Ctrl/Cmd to select multiple)</label
+                    >
+                    <select
+                      multiple
+                      class="form-select"
+                      id="dishSelect"
+                      size="10"
+                      style="font-family: inherit"
+                      disabled
+                    >
+                      <option value="" disabled>
+                        Train model first to see available dishes
+                      </option>
+                    </select>
+                    <small class="text-muted"
+                      >Select one or more dishes to get recommendations</small
+                    >
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Number of Recommendations</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="topN"
+                      min="1"
+                      max="20"
+                      value="5"
+                      disabled
+                    />
+                  </div>
+
+                  <button
+                    class="btn btn-primary w-100"
+                    id="getDishRec"
+                    disabled
+                  >
+                    <span
+                      class="spinner-border spinner-border-sm d-none"
+                      id="getDishRecSpinner"
+                    ></span>
+                    Get Recommendations
+                  </button>
+
+                  <div class="mt-3" id="dishRecRecommendations"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PREP TIME PREDICTION TAB -->
+        <div class="tab-pane fade" id="prep-time" role="tabpanel">
+          <!-- Requirements Info -->
+          <div class="alert alert-info">
+            <strong>📋 CSV Requirements:</strong><br />
+            • Must have <code>timestamp</code> column (datetime format)<br />
+            • Must have <code>KPT duration (minutes)</code> column (target)<br />
+            • Must have <code>Items in order</code> column (kitchen-relevant)<br />
+            • Include <code>Order Status</code> column<br />
+            • Minimum 500+ rows recommended for stable results<br />
+            • <strong>Kitchen-focused features only</strong> - no distance/rider wait needed
+          </div>
+
+          <div class="row">
+            <!-- Training Section -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">🚀 Step 1: Load Data</div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label">Upload Training Data</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="prepTimeFile"
+                      accept=".csv"
+                    />
+                  </div>
+
+                  <div class="text-center mb-3" style="color: #999">— OR —</div>
+
+                  <div class="d-grid gap-2 mb-3">
+                    <button class="btn btn-outline-primary" id="useOriginalPrepTime">
+                      Use Original Data
+                    </button>
+                    <button class="btn btn-outline-secondary" id="generatePrepTimeData">
+                      Generate Sample Data
+                    </button>
+                  </div>
+
+                  <!-- CSV Preview -->
+                  <div id="prepTimePreview" class="csv-preview d-none"></div>
+
+                  <button
+                    class="btn btn-success w-100"
+                    id="trainPrepTime"
+                    disabled
+                  >
+                    <span
+                      class="spinner-border spinner-border-sm d-none"
+                      id="trainPrepTimeSpinner"
+                    ></span>
+                    Train Model
+                  </button>
+
+                  <div class="mt-3" id="prepTimeTrainingStatus"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prediction Section -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">🔮 Step 2: Make Predictions</div>
+                <div class="card-body">
+                  <div class="alert alert-info">
+                    <strong>🎯 Kitchen-Focused Prediction:</strong><br />
+                    Prep time depends on order complexity, peak hours, and kitchen factors only.
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Order Items (kitchen-relevant)</label>
+                    <textarea
+                      class="form-control"
+                      id="prepTimeItems"
+                      rows="2"
+                      placeholder="e.g., 1 x Burger, 2 x Fries, 1 x Coke"
+                      disabled
+                    >1 x Burger, 1 x Fries, 1 x Coke</textarea>
+                  </div>
+
+                  <button
+                    class="btn btn-primary w-100"
+                    id="predictPrepTime"
+                    disabled
+                  >
+                    <span
+                      class="spinner-border spinner-border-sm d-none"
+                      id="predictPrepTimeSpinner"
+                    ></span>
+                    Predict Prep Time
+                  </button>
+
+                  <div class="mt-3" id="prepTimePredictions"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROMOTION EFFECTIVENESS TAB -->
+        <div class="tab-pane fade" id="promotion" role="tabpanel">
+          <!-- Requirements Info -->
+          <div class="alert alert-info">
+            <strong>📋 CSV Requirements:</strong><br />
+            • Must have <code>timestamp</code> column (datetime format)<br />
+            • Must have <code>orders_per_hour</code> and <code>sales_per_hour</code> columns<br />
+            • Must have <code>promotion_type</code> column (categorical)<br />
+            • Include <code>subtotal</code> and <code>total</code> columns<br />
+            • Minimum 500+ rows recommended for stable results<br />
+            • <strong>No data leakage</strong> - model predicts impact without expected values
+          </div>
+
+          <div class="row">
+            <!-- Training Section -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">🚀 Step 1: Load Data</div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label">Upload Training Data</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="promotionFile"
+                      accept=".csv"
+                    />
+                  </div>
+
+                  <div class="text-center mb-3" style="color: #999">— OR —</div>
+
+                  <div class="d-grid gap-2 mb-3">
+                    <button class="btn btn-outline-primary" id="useOriginalPromotion">
+                      Use Original Data
+                    </button>
+                    <button class="btn btn-outline-secondary" id="generatePromotionData">
+                      Generate Sample Data
+                    </button>
+                  </div>
+
+                  <!-- CSV Preview -->
+                  <div id="promotionPreview" class="csv-preview d-none"></div>
+
+                  <button
+                    class="btn btn-success w-100"
+                    id="trainPromotion"
+                    disabled
+                  >
+                    <span
+                      class="spinner-border spinner-border-sm d-none"
+                      id="trainPromotionSpinner"
+                    ></span>
+                    Train Model
+                  </button>
+
+                  <div class="mt-3" id="promotionTrainingStatus"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prediction Section -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">🔮 Step 2: Simulate Promotion Impact</div>
+                <div class="card-body">
+                  <div class="alert alert-info">
+                    <strong>🎯 No Data Leakage:</strong><br />
+                    Model predicts orders/sales impact without requiring expected values as input.
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Promotion Start Date</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="promotionStartDate"
+                      value="2025-06-05"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Promotion Duration (Days)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="promotionDuration"
+                      min="1"
+                      max="30"
+                      value="4"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Start Hour (0-23)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="promotionStartHour"
+                      min="0"
+                      max="23"
+                      value="12"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">End Hour (0-23)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="promotionEndHour"
+                      min="0"
+                      max="23"
+                      value="14"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Promotion Type</label>
+                    <select class="form-select" id="promotionType">
+                      <option value="no_promo">No Promotion</option>
+                      <option value="discount_10">10% Discount</option>
+                      <option value="discount_20">20% Discount</option>
+                      <option value="free_delivery">Free Delivery</option>
+                      <option value="combo_deal">Combo Deal</option>
+                    </select>
+                  </div>
+
+                  <button
+                    class="btn btn-primary w-100"
+                    id="predictPromotion"
+                  >
+                    <span
+                      class="spinner-border spinner-border-sm d-none"
+                      id="predictPromotionSpinner"
+                    ></span>
+                    Predict Promotion Impact
+                  </button>
+
+                  <div class="mt-3" id="promotionPredictions"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="/static/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+version,approach,model,features,mae,r2
+V1,Financial (FLAWED),HistGB,Financial + Location,3.4265535586673757,0.395451411226733
+V2,Dish One-Hot,HistGB,243 dish columns,3.625856738324325,0.268964920527721
+V3,Smart Dish Features,XGBoost,33 engineered,3.6685894649141013,0.26816198063521723
