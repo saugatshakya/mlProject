@@ -1175,11 +1175,11 @@ document.getElementById("trainPrepTime").addEventListener("click", async () => {
       // Use generated/original data
       const response = await fetch(`/${generatedPrepTimeFile}`);
       const blob = await response.blob();
-      formData.append('file', blob, 'data.csv');
+      formData.append("file", blob, "data.csv");
     } else {
       // Use uploaded file
       const fileInput = document.getElementById("prepTimeFile");
-      formData.append('file', fileInput.files[0]);
+      formData.append("file", fileInput.files[0]);
     }
 
     const response = await fetch("/api/prep_time/train", {
@@ -1191,7 +1191,9 @@ document.getElementById("trainPrepTime").addEventListener("click", async () => {
 
     if (response.ok) {
       prepTimeModelTrained = true;
-      resultDiv.textContent = `✓ Model trained! R²: ${formatNumber(result.metrics.r2_score)}, MAE: ${formatNumber(result.metrics.mae)} min`;
+      resultDiv.textContent = `✓ Model trained! R²: ${formatNumber(
+        result.metrics.r2_score
+      )}, MAE: ${formatNumber(result.metrics.mae)} min`;
       resultDiv.classList.remove("d-none");
 
       // Enable prediction inputs (only kitchen-relevant)
@@ -1208,31 +1210,33 @@ document.getElementById("trainPrepTime").addEventListener("click", async () => {
   }
 });
 
-document.getElementById("predictPrepTime").addEventListener("click", async () => {
-  const btn = document.getElementById("predictPrepTime");
-  const resultDiv = document.getElementById("prepTimePredictions");
+document
+  .getElementById("predictPrepTime")
+  .addEventListener("click", async () => {
+    const btn = document.getElementById("predictPrepTime");
+    const resultDiv = document.getElementById("prepTimePredictions");
 
-  btn.disabled = true;
-  showSpinner("predictPrepTimeSpinner");
+    btn.disabled = true;
+    showSpinner("predictPrepTimeSpinner");
 
-  try {
-    const orderData = {
-      timestamp: new Date().toISOString(),
-      "Items in order": document.getElementById("prepTimeItems").value,
-      "Order Status": "Delivered"
-      // REMOVED: Distance_km, Rider wait time, Subtotal, Total - not kitchen-relevant
-    };
+    try {
+      const orderData = {
+        timestamp: new Date().toISOString(),
+        "Items in order": document.getElementById("prepTimeItems").value,
+        "Order Status": "Delivered",
+        // REMOVED: Distance_km, Rider wait time, Subtotal, Total - not kitchen-relevant
+      };
 
-    const response = await fetch("/api/prep_time/predict", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderData),
-    });
+      const response = await fetch("/api/prep_time/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData),
+      });
 
-    const result = await response.json();
+      const result = await response.json();
 
-    if (response.ok) {
-      resultDiv.innerHTML = `
+      if (response.ok) {
+        resultDiv.innerHTML = `
         <div class="metric-box">
           <h3>${formatNumber(result.predicted_prep_time, 1)}</h3>
           <p>Predicted Prep Time (minutes)</p>
@@ -1244,16 +1248,16 @@ document.getElementById("predictPrepTime").addEventListener("click", async () =>
           <li><em>Prep time based on order complexity, peak hours, and kitchen factors only</em></li>
         </ul>
       `;
-    } else {
-      alert(`Prediction failed: ${result.error}`);
+      } else {
+        alert(`Prediction failed: ${result.error}`);
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    } finally {
+      btn.disabled = false;
+      hideSpinner("predictPrepTimeSpinner");
     }
-  } catch (error) {
-    alert(`Error: ${error.message}`);
-  } finally {
-    btn.disabled = false;
-    hideSpinner("predictPrepTimeSpinner");
-  }
-});
+  });
 
 // ============================================================================
 // PROMOTION EFFECTIVENESS FUNCTIONS
@@ -1340,123 +1344,145 @@ document.getElementById("promotionFile").addEventListener("change", (event) => {
   }
 });
 
-document.getElementById("trainPromotion").addEventListener("click", async () => {
-  const btn = document.getElementById("trainPromotion");
-  const resultDiv = document.getElementById("promotionTrainingStatus");
+document
+  .getElementById("trainPromotion")
+  .addEventListener("click", async () => {
+    const btn = document.getElementById("trainPromotion");
+    const resultDiv = document.getElementById("promotionTrainingStatus");
 
-  btn.disabled = true;
-  showSpinner("trainPromotionSpinner");
+    btn.disabled = true;
+    showSpinner("trainPromotionSpinner");
 
-  try {
-    let formData = new FormData();
+    try {
+      let formData = new FormData();
 
-    if (generatedPromotionFile) {
-      // Use generated/original data
-      const response = await fetch(`/${generatedPromotionFile}`);
-      const blob = await response.blob();
-      formData.append('file', blob, 'data.csv');
-    } else {
-      // Use uploaded file
-      const fileInput = document.getElementById("promotionFile");
-      formData.append('file', fileInput.files[0]);
-    }
-
-    const response = await fetch("/api/promotion/train", {
-      method: "POST",
-      body: formData,
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      promotionModelTrained = true;
-      
-      // Display orders metrics if available
-      let metricsText = "";
-      if (result.metrics.orders && result.metrics.orders.r2 !== undefined) {
-        const ordersR2 = formatNumber(result.metrics.orders.r2);
-        const ordersMAE = formatNumber(result.metrics.orders.mae);
-        const ordersRMSE = formatNumber(result.metrics.orders.rmse);
-        metricsText += `Orders R²: ${ordersR2}, MAE: ${ordersMAE}, RMSE: ${ordersRMSE}; `;
+      if (generatedPromotionFile) {
+        // Use generated/original data
+        const response = await fetch(`/${generatedPromotionFile}`);
+        const blob = await response.blob();
+        formData.append("file", blob, "data.csv");
+      } else {
+        // Use uploaded file
+        const fileInput = document.getElementById("promotionFile");
+        formData.append("file", fileInput.files[0]);
       }
-      
-      // Display sales metrics
-      const salesR2 = result.metrics.sales && result.metrics.sales.r2 !== undefined ? formatNumber(result.metrics.sales.r2) : 'N/A';
-      const salesMAE = result.metrics.sales && result.metrics.sales.mae !== undefined ? formatNumber(result.metrics.sales.mae) : 'N/A';
-      const salesRMSE = result.metrics.sales && result.metrics.sales.rmse !== undefined ? formatNumber(result.metrics.sales.rmse) : 'N/A';
-      metricsText += `Sales R²: ${salesR2}, MAE: ${salesMAE}, RMSE: ${salesRMSE}`;
-      
-      resultDiv.textContent = `✓ Model trained! ${metricsText}`;
-      resultDiv.classList.remove("d-none");
 
-      // Enable prediction inputs (removed data leakage fields)
-      document.getElementById("promotionHour").disabled = false;
-      document.getElementById("promotionDayOfWeek").disabled = false;
-      document.getElementById("promotionType").disabled = false;
-      document.getElementById("predictPromotion").disabled = false;
-    } else {
-      alert(`Training failed: ${result.error}`);
+      const response = await fetch("/api/promotion/train", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        promotionModelTrained = true;
+
+        // Display orders metrics if available
+        let metricsText = "";
+        if (result.metrics.orders && result.metrics.orders.r2 !== undefined) {
+          const ordersR2 = formatNumber(result.metrics.orders.r2);
+          const ordersMAE = formatNumber(result.metrics.orders.mae);
+          const ordersRMSE = formatNumber(result.metrics.orders.rmse);
+          metricsText += `Orders R²: ${ordersR2}, MAE: ${ordersMAE}, RMSE: ${ordersRMSE}; `;
+        }
+
+        // Display sales metrics
+        const salesR2 =
+          result.metrics.sales && result.metrics.sales.r2 !== undefined
+            ? formatNumber(result.metrics.sales.r2)
+            : "N/A";
+        const salesMAE =
+          result.metrics.sales && result.metrics.sales.mae !== undefined
+            ? formatNumber(result.metrics.sales.mae)
+            : "N/A";
+        const salesRMSE =
+          result.metrics.sales && result.metrics.sales.rmse !== undefined
+            ? formatNumber(result.metrics.sales.rmse)
+            : "N/A";
+        metricsText += `Sales R²: ${salesR2}, MAE: ${salesMAE}, RMSE: ${salesRMSE}`;
+
+        resultDiv.textContent = `✓ Model trained! ${metricsText}`;
+        resultDiv.classList.remove("d-none");
+
+        // Enable prediction inputs (removed data leakage fields)
+        document.getElementById("promotionHour").disabled = false;
+        document.getElementById("promotionDayOfWeek").disabled = false;
+        document.getElementById("promotionType").disabled = false;
+        document.getElementById("predictPromotion").disabled = false;
+      } else {
+        alert(`Training failed: ${result.error}`);
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    } finally {
+      btn.disabled = false;
+      hideSpinner("trainPromotionSpinner");
     }
-  } catch (error) {
-    alert(`Error: ${error.message}`);
-  } finally {
-    btn.disabled = false;
-    hideSpinner("trainPromotionSpinner");
-  }
-});
+  });
 
-document.getElementById("predictPromotion").addEventListener("click", async () => {
-  const btn = document.getElementById("predictPromotion");
-  const resultDiv = document.getElementById("promotionPredictions");
+document
+  .getElementById("predictPromotion")
+  .addEventListener("click", async () => {
+    const btn = document.getElementById("predictPromotion");
+    const resultDiv = document.getElementById("promotionPredictions");
 
-  btn.disabled = true;
-  showSpinner("predictPromotionSpinner");
+    btn.disabled = true;
+    showSpinner("predictPromotionSpinner");
 
-  try {
-    // Parse the date input
-    const startDate = new Date(document.getElementById("promotionStartDate").value);
-    const duration = parseInt(document.getElementById("promotionDuration").value);
+    try {
+      // Parse the date input
+      const startDate = new Date(
+        document.getElementById("promotionStartDate").value
+      );
+      const duration = parseInt(
+        document.getElementById("promotionDuration").value
+      );
 
-    const promoData = {
-      start_date: document.getElementById("promotionStartDate").value,
-      duration_days: duration,
-      start_hour: parseInt(document.getElementById("promotionStartHour").value),
-      end_hour: parseInt(document.getElementById("promotionEndHour").value),
-      temperature: 25.0, // Default weather
-      precipitation: 0.0,
-      wind_speed: 5.0,
-      is_event: 0
-    };
+      const promoData = {
+        start_date: document.getElementById("promotionStartDate").value,
+        duration_days: duration,
+        start_hour: parseInt(
+          document.getElementById("promotionStartHour").value
+        ),
+        end_hour: parseInt(document.getElementById("promotionEndHour").value),
+        temperature: 25.0, // Default weather
+        precipitation: 0.0,
+        wind_speed: 5.0,
+        is_event: 0,
+      };
 
-    // Add promotion flags based on selected type
-    const promotionType = document.getElementById("promotionType").value;
-    if (promotionType === 'discount_10' || promotionType === 'discount_20') {
-      promoData['flat_%'] = promotionType === 'discount_10' ? 10 : 20;
-    } else {
-      promoData['flat_%'] = 0;
-    }
-    
-    promoData['flat_rs'] = promotionType === 'free_delivery' ? 50 : 0;
-    promoData['buy_1_get_1'] = promotionType === 'combo_deal' ? 1 : 0;
-    promoData['buy_7_get_3'] = 0;
+      // Add promotion flags based on selected type
+      const promotionType = document.getElementById("promotionType").value;
+      if (promotionType === "discount_10" || promotionType === "discount_20") {
+        promoData["flat_%"] = promotionType === "discount_10" ? 10 : 20;
+      } else {
+        promoData["flat_%"] = 0;
+      }
 
-    const response = await fetch("/api/promotion/predict", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(promoData),
-    });
+      promoData["flat_rs"] = promotionType === "free_delivery" ? 50 : 0;
+      promoData["buy_1_get_1"] = promotionType === "combo_deal" ? 1 : 0;
+      promoData["buy_7_get_3"] = 0;
 
-    const result = await response.json();
+      const response = await fetch("/api/promotion/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(promoData),
+      });
 
-    if (response.ok) {
-      let html = `
+      const result = await response.json();
+
+      if (response.ok) {
+        let html = `
         <div class="alert alert-success">
           <strong>Promotion Impact Prediction</strong>
         </div>
       `;
 
-      if (result.baseline_orders !== undefined && result.baseline_sales !== undefined) {
-        html += `
+        if (
+          result.baseline_orders !== undefined &&
+          result.baseline_sales !== undefined
+        ) {
+          html += `
           <div class="metric-box">
             <h3>${formatNumber(result.baseline_orders, 1)}</h3>
             <p>Baseline Orders (${result.promotion_period_hours || 1} hours)</p>
@@ -1466,83 +1492,102 @@ document.getElementById("predictPromotion").addEventListener("click", async () =
             <p>Baseline Sales (${result.promotion_period_hours || 1} hours)</p>
           </div>
         `;
-      }
+        }
 
-      if (result.predicted_orders !== undefined) {
-        html += `
+        if (result.predicted_orders !== undefined) {
+          html += `
           <div class="metric-box">
             <h3>${formatNumber(result.predicted_orders, 1)}</h3>
-            <p>Predicted Orders (${result.promotion_period_hours || 1} hours)</p>
+            <p>Predicted Orders (${
+              result.promotion_period_hours || 1
+            } hours)</p>
           </div>
         `;
-      }
+        }
 
-      if (result.predicted_sales !== undefined) {
-        html += `
+        if (result.predicted_sales !== undefined) {
+          html += `
           <div class="metric-box">
             <h3>₹${formatNumber(result.predicted_sales, 0)}</h3>
             <p>Predicted Sales (${result.promotion_period_hours || 1} hours)</p>
           </div>
         `;
-      }
+        }
 
-      if (result.promotion_impact_orders !== undefined && result.promotion_impact_sales !== undefined) {
-        html += `
+        if (
+          result.promotion_impact_orders !== undefined &&
+          result.promotion_impact_sales !== undefined
+        ) {
+          html += `
           <div class="metric-box">
-            <h3 style="color: ${result.promotion_impact_orders >= 0 ? 'green' : 'red'}">${result.promotion_impact_orders >= 0 ? '+' : ''}${formatNumber(result.promotion_impact_orders, 1)}</h3>
+            <h3 style="color: ${
+              result.promotion_impact_orders >= 0 ? "green" : "red"
+            }">${result.promotion_impact_orders >= 0 ? "+" : ""}${formatNumber(
+            result.promotion_impact_orders,
+            1
+          )}</h3>
             <p>Order Impact</p>
           </div>
           <div class="metric-box">
-            <h3 style="color: ${result.promotion_impact_sales >= 0 ? 'green' : 'red'}">${result.promotion_impact_sales >= 0 ? '+' : ''}₹${formatNumber(result.promotion_impact_sales, 0)}</h3>
+            <h3 style="color: ${
+              result.promotion_impact_sales >= 0 ? "green" : "red"
+            }">${result.promotion_impact_sales >= 0 ? "+" : ""}₹${formatNumber(
+            result.promotion_impact_sales,
+            0
+          )}</h3>
             <p>Sales Impact</p>
           </div>
         `;
-      }
+        }
 
-      html += `
+        html += `
         <p><strong>Promotion Scenario (Period-based, No Historical Data):</strong></p>
         <ul>
       `;
 
-      // Determine promotion type from flags
-      let promotionDescription = "No Promotion";
-      if (promoData['flat_%'] > 0) {
-        promotionDescription = `${promoData['flat_%']}% Discount`;
-      } else if (promoData['flat_rs'] > 0) {
-        promotionDescription = `₹${promoData['flat_rs']} Off`;
-      } else if (promoData['buy_1_get_1'] > 0) {
-        promotionDescription = "Buy 1 Get 1 Free";
-      } else if (promoData['buy_7_get_3'] > 0) {
-        promotionDescription = "Buy 7 Get 3 Free";
-      }
+        // Determine promotion type from flags
+        let promotionDescription = "No Promotion";
+        if (promoData["flat_%"] > 0) {
+          promotionDescription = `${promoData["flat_%"]}% Discount`;
+        } else if (promoData["flat_rs"] > 0) {
+          promotionDescription = `₹${promoData["flat_rs"]} Off`;
+        } else if (promoData["buy_1_get_1"] > 0) {
+          promotionDescription = "Buy 1 Get 1 Free";
+        } else if (promoData["buy_7_get_3"] > 0) {
+          promotionDescription = "Buy 7 Get 3 Free";
+        }
 
-      html += `<li>Type: ${promotionDescription}</li>`;
+        html += `<li>Type: ${promotionDescription}</li>`;
 
-      // Show period information if available
-      if (promoData.start_date && promoData.duration_days) {
-        html += `<li>Period: ${promoData.start_date} for ${promoData.duration_days} days (${promoData.start_hour}:00-${promoData.end_hour}:00 daily)</li>`;
-      } else {
-        html += `<li>Time: ${promoData.start_hour}:00-${promoData.end_hour}:00</li>`;
-      }
+        // Show period information if available
+        if (promoData.start_date && promoData.duration_days) {
+          html += `<li>Period: ${promoData.start_date} for ${promoData.duration_days} days (${promoData.start_hour}:00-${promoData.end_hour}:00 daily)</li>`;
+        } else {
+          html += `<li>Time: ${promoData.start_hour}:00-${promoData.end_hour}:00</li>`;
+        }
 
-      html += `
-          <li>Weather: ${promoData.temperature}°C, ${promoData.precipitation}mm rain</li>
-          <li>Events: ${promoData.is_event ? 'Major event' : 'No major events'}</li>
+        html += `
+          <li>Weather: ${promoData.temperature}°C, ${
+          promoData.precipitation
+        }mm rain</li>
+          <li>Events: ${
+            promoData.is_event ? "Major event" : "No major events"
+          }</li>
           <li><em>Prediction uses volume models trained on aggregated hourly data</em></li>
         </ul>
       `;
 
-      resultDiv.innerHTML = html;
-    } else {
-      alert(`Prediction failed: ${result.error}`);
+        resultDiv.innerHTML = html;
+      } else {
+        alert(`Prediction failed: ${result.error}`);
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    } finally {
+      btn.disabled = false;
+      hideSpinner("predictPromotionSpinner");
     }
-  } catch (error) {
-    alert(`Error: ${error.message}`);
-  } finally {
-    btn.disabled = false;
-    hideSpinner("predictPromotionSpinner");
-  }
-});
+  });
 
 // Check model status on page load
 window.addEventListener("load", async () => {

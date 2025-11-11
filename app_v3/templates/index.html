@@ -669,7 +669,8 @@
             • Must have <code>Items in order</code> column (kitchen-relevant)<br />
             • Include <code>Order Status</code> column<br />
             • Minimum 500+ rows recommended for stable results<br />
-            • <strong>Kitchen-focused features only</strong> - no distance/rider wait needed
+            • <strong>Kitchen-focused features only</strong> - no distance/rider
+            wait needed
           </div>
 
           <div class="row">
@@ -691,10 +692,16 @@
                   <div class="text-center mb-3" style="color: #999">— OR —</div>
 
                   <div class="d-grid gap-2 mb-3">
-                    <button class="btn btn-outline-primary" id="useOriginalPrepTime">
+                    <button
+                      class="btn btn-outline-primary"
+                      id="useOriginalPrepTime"
+                    >
                       Use Original Data
                     </button>
-                    <button class="btn btn-outline-secondary" id="generatePrepTimeData">
+                    <button
+                      class="btn btn-outline-secondary"
+                      id="generatePrepTimeData"
+                    >
                       Generate Sample Data
                     </button>
                   </div>
@@ -726,18 +733,23 @@
                 <div class="card-body">
                   <div class="alert alert-info">
                     <strong>🎯 Kitchen-Focused Prediction:</strong><br />
-                    Prep time depends on order complexity, peak hours, and kitchen factors only.
+                    Prep time depends on order complexity, peak hours, and
+                    kitchen factors only.
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label">Order Items (kitchen-relevant)</label>
+                    <label class="form-label"
+                      >Order Items (kitchen-relevant)</label
+                    >
                     <textarea
                       class="form-control"
                       id="prepTimeItems"
                       rows="2"
                       placeholder="e.g., 1 x Burger, 2 x Fries, 1 x Coke"
                       disabled
-                    >1 x Burger, 1 x Fries, 1 x Coke</textarea>
+                    >
+1 x Burger, 1 x Fries, 1 x Coke</textarea
+                    >
                   </div>
 
                   <button
@@ -765,11 +777,13 @@
           <div class="alert alert-info">
             <strong>📋 CSV Requirements:</strong><br />
             • Must have <code>timestamp</code> column (datetime format)<br />
-            • Must have <code>orders_per_hour</code> and <code>sales_per_hour</code> columns<br />
+            • Must have <code>orders_per_hour</code> and
+            <code>sales_per_hour</code> columns<br />
             • Must have <code>promotion_type</code> column (categorical)<br />
             • Include <code>subtotal</code> and <code>total</code> columns<br />
             • Minimum 500+ rows recommended for stable results<br />
-            • <strong>No data leakage</strong> - model predicts impact without expected values
+            • <strong>No data leakage</strong> - model predicts impact without
+            expected values
           </div>
 
           <div class="row">
@@ -791,10 +805,16 @@
                   <div class="text-center mb-3" style="color: #999">— OR —</div>
 
                   <div class="d-grid gap-2 mb-3">
-                    <button class="btn btn-outline-primary" id="useOriginalPromotion">
+                    <button
+                      class="btn btn-outline-primary"
+                      id="useOriginalPromotion"
+                    >
                       Use Original Data
                     </button>
-                    <button class="btn btn-outline-secondary" id="generatePromotionData">
+                    <button
+                      class="btn btn-outline-secondary"
+                      id="generatePromotionData"
+                    >
                       Generate Sample Data
                     </button>
                   </div>
@@ -822,11 +842,14 @@
             <!-- Prediction Section -->
             <div class="col-md-6">
               <div class="card">
-                <div class="card-header">🔮 Step 2: Simulate Promotion Impact</div>
+                <div class="card-header">
+                  🔮 Step 2: Simulate Promotion Impact
+                </div>
                 <div class="card-body">
                   <div class="alert alert-info">
                     <strong>🎯 No Data Leakage:</strong><br />
-                    Model predicts orders/sales impact without requiring expected values as input.
+                    Model predicts orders/sales impact without requiring
+                    expected values as input.
                   </div>
 
                   <div class="mb-3">
@@ -886,10 +909,7 @@
                     </select>
                   </div>
 
-                  <button
-                    class="btn btn-primary w-100"
-                    id="predictPromotion"
-                  >
+                  <button class="btn btn-primary w-100" id="predictPromotion">
                     <span
                       class="spinner-border spinner-border-sm d-none"
                       id="predictPromotionSpinner"

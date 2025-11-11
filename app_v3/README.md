@@ -7,12 +7,14 @@ App v3 is the final deployment version of the ML2025 project, featuring **5 adva
 ## 🚀 Available Models
 
 ### 1. **Dish Prediction** (Multi-output regression)
+
 - **Purpose**: Predict hourly demand for individual dishes
 - **Algorithm**: Multi-output regression with time-series features
 - **Use Case**: Inventory management, menu optimization
 - **Performance**: Real operational data validation
 
 ### 2. **Demand Prediction** (Enhanced XGBoost)
+
 - **Purpose**: Predict hourly order volumes
 - **Algorithm**: XGBoost with 27 advanced features
 - **Performance**: R² = 0.9558, MAE = 0.765 orders/hour
@@ -20,18 +22,21 @@ App v3 is the final deployment version of the ML2025 project, featuring **5 adva
 - **Use Case**: Staffing, capacity planning
 
 ### 3. **Dish Recommendation** (Association Rules)
+
 - **Purpose**: Generate dish recommendations based on order patterns
 - **Algorithm**: Apriori algorithm for frequent itemsets
 - **Use Case**: Cross-selling, menu suggestions
 - **Performance**: Confidence and lift metrics
 
 ### 4. **Prep Time Prediction** (XGBoost Regression)
+
 - **Purpose**: Predict kitchen preparation time for orders
 - **Algorithm**: XGBoost with kitchen-focused features
 - **Features**: Distance, order complexity, rider wait time
 - **Use Case**: Delivery time estimation, kitchen efficiency
 
 ### 5. **Promotion Effectiveness** (Random Forest)
+
 - **Purpose**: Analyze impact of promotions on orders and sales
 - **Algorithm**: Dual Random Forest models (orders + sales)
 - **Features**: Promotion types, temporal patterns, historical data
@@ -42,16 +47,19 @@ App v3 is the final deployment version of the ML2025 project, featuring **5 adva
 The application supports multiple data input methods:
 
 ### Original Data (Recommended)
+
 - Uses real operational data from `data/data.csv`
 - Pre-processed datasets available for all models
 - Run `python prepare_original_data.py` to generate
 
 ### Generated Data
+
 - Synthetic data generation for testing/demonstration
 - Realistic patterns based on operational insights
 - Configurable dataset sizes
 
 ### Upload Custom Data
+
 - CSV upload functionality for all models
 - Automatic format validation and preview
 - Flexible column mapping
@@ -59,18 +67,21 @@ The application supports multiple data input methods:
 ## 🛠️ Technical Architecture
 
 ### Backend (Flask)
+
 - **Framework**: Flask with RESTful API design
 - **Models**: Modular wrapper classes for each ML model
 - **Data Processing**: Pandas-based ETL pipelines
 - **File Handling**: Secure upload/download with validation
 
 ### Frontend (Bootstrap + JavaScript)
+
 - **UI Framework**: Bootstrap 5 with custom styling
 - **Interactivity**: Vanilla JavaScript with async/await
 - **Visualization**: Dynamic charts and metrics display
 - **UX**: Tabbed interface with guided workflows
 
 ### ML Pipeline
+
 - **Preprocessing**: Automated feature engineering
 - **Training**: Model-specific hyperparameter optimization
 - **Evaluation**: Comprehensive metrics (R², MAE, RMSE)
@@ -79,17 +90,20 @@ The application supports multiple data input methods:
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### Data Preparation
+
 ```bash
 # Generate original datasets from raw data
 python prepare_original_data.py
 ```
 
 ### Launch Application
+
 ```bash
 python app.py
 ```
@@ -98,35 +112,39 @@ Access at: http://localhost:5001
 
 ## 📈 Model Performance Summary
 
-| Model | Algorithm | Key Metric | Performance | Status |
-|-------|-----------|------------|-------------|--------|
-| Demand Prediction | XGBoost | R² Score | 0.9558 | ✅ Production Ready |
-| Prep Time Prediction | XGBoost | MAE | ~2-3 min | ✅ Production Ready |
-| Promotion Effectiveness | Random Forest | R² Score | 0.85+ | ✅ Production Ready |
-| Dish Prediction | Multi-output Reg | R² Score | 0.80+ | ✅ Production Ready |
-| Dish Recommendation | Association Rules | Confidence | 0.70+ | ✅ Production Ready |
+| Model                   | Algorithm         | Key Metric | Performance | Status              |
+| ----------------------- | ----------------- | ---------- | ----------- | ------------------- |
+| Demand Prediction       | XGBoost           | R² Score   | 0.9558      | ✅ Production Ready |
+| Prep Time Prediction    | XGBoost           | MAE        | ~2-3 min    | ✅ Production Ready |
+| Promotion Effectiveness | Random Forest     | R² Score   | 0.85+       | ✅ Production Ready |
+| Dish Prediction         | Multi-output Reg  | R² Score   | 0.80+       | ✅ Production Ready |
+| Dish Recommendation     | Association Rules | Confidence | 0.70+       | ✅ Production Ready |
 
 ## 🎯 Key Features
 
 ### Data Management
+
 - **Multiple Input Methods**: Original data, generated data, file upload
 - **Format Validation**: Automatic CSV structure checking
 - **Preview Functionality**: Data sampling and statistics
 - **Secure Storage**: Organized upload directory structure
 
 ### Model Training
+
 - **Automated Pipelines**: End-to-end training workflows
 - **Progress Tracking**: Real-time training status updates
 - **Performance Metrics**: Comprehensive evaluation reporting
 - **Model Persistence**: Automatic saving and loading
 
 ### Prediction Interface
+
 - **Interactive Forms**: User-friendly input collection
 - **Real-time Results**: Instant prediction generation
 - **Visualization**: Metric boxes and charts
 - **Export Options**: CSV download capabilities
 
 ### Business Intelligence
+
 - **Operational Insights**: Actionable predictions for business decisions
 - **Scenario Analysis**: What-if simulations for promotions
 - **Performance Tracking**: Historical accuracy monitoring
@@ -155,9 +173,11 @@ app_v3/
 ## 🔧 API Endpoints
 
 ### Health Check
+
 - `GET /health` - Model status overview
 
 ### Data Generation
+
 - `POST /api/generate/dish_data` - Generate dish prediction data
 - `POST /api/generate/demand_data` - Generate demand prediction data
 - `POST /api/generate/order_data` - Generate recommendation data
@@ -165,6 +185,7 @@ app_v3/
 - `POST /api/generate/promotion_data` - Generate promotion data
 
 ### Original Data Access
+
 - `GET /api/use_original/dish_prediction` - Load original dish data
 - `GET /api/use_original/demand_prediction` - Load original demand data
 - `GET /api/use_original/dish_recommendation` - Load original order data
@@ -172,6 +193,7 @@ app_v3/
 - `GET /api/use_original/promotion_effectiveness` - Load original promotion data
 
 ### Model Operations
+
 - `POST /api/{model}/train` - Train specific model
 - `POST /api/{model}/predict` - Generate predictions
 - `GET /api/{model}/status` - Check model status
@@ -179,16 +201,19 @@ app_v3/
 ## 🎨 User Interface
 
 ### Navigation
+
 - **Tabbed Interface**: Clean separation of model functionalities
 - **Progressive Disclosure**: Step-by-step workflows
 - **Status Indicators**: Visual feedback on model states
 
 ### Data Input
+
 - **Multiple Options**: Upload, generate, or use original data
 - **Validation**: Real-time format checking
 - **Preview**: Data sampling before processing
 
 ### Results Display
+
 - **Metric Cards**: Prominent performance indicators
 - **Interactive Charts**: Visual analysis of predictions
 - **Export Options**: Download results as CSV
@@ -196,17 +221,20 @@ app_v3/
 ## 🔒 Security & Best Practices
 
 ### Data Security
+
 - **Input Validation**: Comprehensive CSV format checking
 - **File Type Restrictions**: CSV-only uploads
 - **Size Limits**: 50MB maximum file size
 - **Secure Paths**: Sanitized file handling
 
 ### Model Security
+
 - **Pickle Safety**: Controlled deserialization
 - **Input Sanitization**: Feature validation
 - **Error Handling**: Graceful failure management
 
 ### Production Readiness
+
 - **Logging**: Comprehensive error tracking
 - **Monitoring**: Health check endpoints
 - **Scalability**: Stateless design principles
@@ -215,11 +243,13 @@ app_v3/
 ## 🚀 Deployment Options
 
 ### Local Development
+
 ```bash
 python app.py
 ```
 
 ### Production Server
+
 ```bash
 # Using Gunicorn
 gunicorn -w 4 -b 0.0.0.0:5001 app:app
@@ -229,6 +259,7 @@ uwsgi --http :5001 --wsgi-file app.py --callable app
 ```
 
 ### Docker Deployment
+
 ```dockerfile
 FROM python:3.9-slim
 WORKDIR /app
@@ -242,16 +273,19 @@ CMD ["python", "app.py"]
 ## 📈 Future Enhancements
 
 ### Model Improvements
+
 - **Deep Learning**: LSTM networks for time-series
 - **Ensemble Methods**: Model stacking and blending
 - **AutoML**: Automated hyperparameter optimization
 
 ### Feature Additions
+
 - **Real-time Predictions**: Streaming data integration
 - **A/B Testing**: Promotion effectiveness experiments
 - **Multi-location**: Restaurant-specific models
 
 ### UI/UX Improvements
+
 - **Advanced Visualization**: Interactive charts and dashboards
 - **Mobile Optimization**: Responsive design enhancements
 - **API Integration**: Third-party service connections
@@ -270,6 +304,7 @@ This project is part of the ML2025 academic initiative. See individual notebooks
 ## 📞 Support
 
 For technical issues or questions:
+
 - Check the individual model notebooks for detailed documentation
 - Review the API endpoints for integration guidance
 - Examine the data preparation scripts for data format requirements
