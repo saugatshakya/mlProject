@@ -150,15 +150,15 @@ class DishRecommendationModel:
         rules = []
         
         for dish1 in self.all_dishes:
-            if self.dish_support[dish1] < min_support:
-                continue
+            # if self.dish_support[dish1] < min_support:
+            #     continue
             
             for dish2 in self.all_dishes:
                 if dish1 == dish2:
                     continue
                 
-                if self.dish_support[dish2] < min_support:
-                    continue
+                # if self.dish_support[dish2] < min_support:
+                #     continue
                 
                 # Count co-occurrence (use .get() to handle dishes with no co-occurrences)
                 cooccur_count = cooccurrence.get(dish1, {}).get(dish2, 0)

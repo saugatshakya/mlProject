@@ -642,7 +642,7 @@ def generate_order_data():
             
             data_rows.append({
                 'order_id': order_id,
-                'items': ', '.join([f"1 x {item}" for item in items])
+                'items': items
             })
         
         df = pd.DataFrame(data_rows)

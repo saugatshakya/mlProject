@@ -174,42 +174,42 @@ document
     }
   });
 
-document
-  .getElementById("generateOrderData")
-  .addEventListener("click", async () => {
-    const orders = document.getElementById("orderDataRows").value;
-    const btn = document.getElementById("generateOrderData");
-    const resultDiv = document.getElementById("orderDataGenerated");
+// document
+//   .getElementById("generateOrderData")
+//   .addEventListener("click", async () => {
+//     const orders = document.getElementById("orderDataRows").value;
+//     const btn = document.getElementById("generateOrderData");
+//     const resultDiv = document.getElementById("orderDataGenerated");
 
-    btn.disabled = true;
-    resultDiv.classList.add("d-none");
+//     btn.disabled = true;
+//     resultDiv.classList.add("d-none");
 
-    try {
-      const response = await fetch("/api/generate/order_data", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orders: parseInt(orders) }),
-      });
+//     try {
+//       const response = await fetch("/api/generate/order_data", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ orders: parseInt(orders) }),
+//       });
 
-      const result = await response.json();
+//       const result = await response.json();
 
-      if (response.ok) {
-        generatedOrderFile = result.filepath;
-        dishRecDataLoaded = true;
-        resultDiv.textContent = `✓ Generated ${result.orders} orders`;
-        resultDiv.classList.remove("d-none");
+//       if (response.ok) {
+//         generatedOrderFile = result.filepath;
+//         dishRecDataLoaded = true;
+//         resultDiv.textContent = `✓ Generated ${result.orders} orders`;
+//         resultDiv.classList.remove("d-none");
 
-        // Show preview
-        displayCSVPreview(result, "dishRecPreview");
-      } else {
-        alert(`Error: ${result.error}`);
-      }
-    } catch (error) {
-      alert(`Error: ${error.message}`);
-    } finally {
-      btn.disabled = false;
-    }
-  });
+//         // Show preview
+//         displayCSVPreview(result, "dishRecPreview");
+//       } else {
+//         alert(`Error: ${result.error}`);
+//       }
+//     } catch (error) {
+//       alert(`Error: ${error.message}`);
+//     } finally {
+//       btn.disabled = false;
+//     }
+//   });
 
 // ============================================================================
 // USE ORIGINAL DATA
@@ -1296,45 +1296,45 @@ document
     }
   });
 
-document
-  .getElementById("generatePromotionData")
-  .addEventListener("click", async () => {
-    const rows = 1008; // Default rows
-    const btn = document.getElementById("generatePromotionData");
-    const resultDiv = document.getElementById("promotionTrainingStatus");
+// document
+//   .getElementById("generatePromotionData")
+//   .addEventListener("click", async () => {
+//     const rows = 1008; // Default rows
+//     const btn = document.getElementById("generatePromotionData");
+//     const resultDiv = document.getElementById("promotionTrainingStatus");
 
-    btn.disabled = true;
-    resultDiv.classList.add("d-none");
+//     btn.disabled = true;
+//     resultDiv.classList.add("d-none");
 
-    try {
-      const response = await fetch("/api/generate/promotion_data", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rows: rows }),
-      });
+//     try {
+//       const response = await fetch("/api/generate/promotion_data", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ rows: rows }),
+//       });
 
-      const result = await response.json();
+//       const result = await response.json();
 
-      if (response.ok) {
-        generatedPromotionFile = result.filepath;
-        promotionDataLoaded = true;
-        resultDiv.textContent = `✓ Generated ${result.rows} rows of promotion data`;
-        resultDiv.classList.remove("d-none");
+//       if (response.ok) {
+//         generatedPromotionFile = result.filepath;
+//         promotionDataLoaded = true;
+//         resultDiv.textContent = `✓ Generated ${result.rows} rows of promotion data`;
+//         resultDiv.classList.remove("d-none");
 
-        // Show preview
-        displayCSVPreview(result, "promotionPreview");
+//         // Show preview
+//         displayCSVPreview(result, "promotionPreview");
 
-        // Enable training
-        document.getElementById("trainPromotion").disabled = false;
-      } else {
-        alert(`Error: ${result.error}`);
-      }
-    } catch (error) {
-      alert(`Error: ${error.message}`);
-    } finally {
-      btn.disabled = false;
-    }
-  });
+//         // Enable training
+//         document.getElementById("trainPromotion").disabled = false;
+//       } else {
+//         alert(`Error: ${result.error}`);
+//       }
+//     } catch (error) {
+//       alert(`Error: ${error.message}`);
+//     } finally {
+//       btn.disabled = false;
+//     }
+//   });
 
 document.getElementById("promotionFile").addEventListener("change", (event) => {
   const file = event.target.files[0];
